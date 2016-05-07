@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>moneyhaus</artifactId>
+		<groupId>hu.unideb.inf</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>moneyhaus-ear</artifactId>
+	<packaging>ear</packaging>
+
+	<name>moneyhaus-ear</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>hu.unideb.inf</groupId>
+			<artifactId>moneyhaus-ejb</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>hu.unideb.inf</groupId>
+			<artifactId>moneyhaus-web</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>hu.unideb.inf</groupId>
+			<artifactId>moneyhaus-integration</artifactId>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>MoneyHaus</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<modules>
+						<webModule>
+							<groupId>hu.unideb.inf</groupId>
+							<artifactId>moneyhaus-web</artifactId>
+							<contextRoot>/</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>hu.unideb.inf</groupId>
+							<artifactId>moneyhaus-integration</artifactId>
+							<contextRoot>/null</contextRoot>
+						</webModule>
+						<ejbModule>
+							<groupId>hu.unideb.inf</groupId>
+							<artifactId>moneyhaus-ejb</artifactId>
+						</ejbModule>
+					</modules>
+					<version>6</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

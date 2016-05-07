@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/masterLayout.xhtml"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<ui:define name="title">Bejelentkezés</ui:define>
+
+	<ui:define name="content">
+		<f:view>
+			<h:body>
+				<div style="text-align: center;">
+					<form id="login-form" action="#{request.contextPath}/login"
+						method="post">
+						<div style="width: 50%; margin: auto;">
+							<h:panelGroup layout="block" class="error"
+								rendered="#{param['error'] == 1}">Hibás jelszó</h:panelGroup>
+							<fieldset style="display: inline-block;">
+								<label class="name"><input type="text"
+									placeholder="Felhasználónév" name="j_username" /> <br
+									class="clear" /> </label> <label class="password"> <input
+									type="password" name="j_password" placeholder="Jelszó" />
+									<br class="clear" />
+								</label> <label class="remember-me"> <input type="checkbox"
+									name="remember-me" />
+								</label>
+								<div class="remember-me-text">Csökkentett biztonság</div>
+								<div class="clear" />
+								<div class="btns" style="text-align: center;">
+									<input type="submit" value="Bejelentkezés" />
+								</div>
+							</fieldset>
+						</div>
+					</form>
+				</div>
+			</h:body>
+		</f:view>
+	</ui:define>
+</ui:composition>

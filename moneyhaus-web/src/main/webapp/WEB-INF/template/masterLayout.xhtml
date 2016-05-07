@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view>
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+            <title><ui:insert name="title">Default title</ui:insert></title>
+
+            <h:outputStylesheet library="default" name="css/styles.css" />
+            <h:outputStylesheet
+                name='http://fonts.googleapis.com/css?family=Lobster+Two'/>
+            <h:outputStylesheet
+                name='http://fonts.googleapis.com/css?family=Pontano+Sans'/>
+            <h:outputScript library="default" name="js/jquery-1.9.1.js" />
+            <h:outputScript library="default" name="js/jquery-ui.js" />
+            <h:outputScript library="default" name="js/carouselScript.js" />
+            <h:outputStylesheet library="default" name="css/carousel.css" />
+            <f:verbatim>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        //add "active" class to the actual page link in the menu
+                        var fileName = location.href.split("/").slice(-1);
+                        $("li > a[href='/" + fileName + "']").addClass("active");
+                    });
+                </script>
+            </f:verbatim>
+        </h:head>
+        <body>
+            <div class="header-wrap">
+                <div class="header">
+                    <div class="logo">
+                        <h1>MoneyHaus</h1>
+                    </div>
+                    <div class="menu">
+                        <ul>
+                            <li><a href="#{request.contextPath}/index.xhtml">Home</a></li>
+                            <li><h:outputLink value="#{request.contextPath}/secured/currencies.xhtml"
+                                              rendered="#{request.userPrincipal != null}">Valuták</h:outputLink></li>
+                            <li><h:outputLink
+                                    value="#{request.contextPath}/public/login.xhtml"
+                                    rendered="#{request.userPrincipal == null}">Bejelentkezés</h:outputLink></li>
+                            <li><h:outputLink value="#{request.contextPath}/logout"
+                                              rendered="#{request.userPrincipal != null}">
+                                    Kijelentkezés(<h:outputText value="#{userMBean.user}">
+                                        <f:converter converterId="userConverter" />
+                                    </h:outputText>)
+                                </h:outputLink></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <div class="primary-col">
+                    <div class="generic">
+                        <div class=" panel">
+                            <div class="title">
+                                <h1>
+                                    <ui:insert name="content-title"></ui:insert>
+                                </h1>
+                            </div>
+                            <div class="content">
+                                <ui:insert name="content"></ui:insert>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <ui:insert name="extra_panel"/>
+
+            <div class="copyright-wrap">
+                <div class="copyright">
+                    <div class="content">
+                        <p>
+                            Copyright (c) websitename. All rights reserved. &lt; <a
+                                href="www.alltemplateneeds.com" class="active">www.alltemplateneeds.com
+                            </a>&gt; Images From: <a href="www.photorack.net">www.photorack.net</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </f:view>
+</html>
