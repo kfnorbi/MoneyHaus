@@ -36,7 +36,7 @@ public class OwnedCurrenciesEntity extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateOfBuy;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     UserEntity user;
 
@@ -62,6 +62,14 @@ public class OwnedCurrenciesEntity extends BaseEntity {
 
     public void setDateOfBuy(Date dateOfBuy) {
         this.dateOfBuy = dateOfBuy;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
 }

@@ -4,7 +4,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions" 
-                template="/WEB-INF/template/sideBaredLayout.xhtml"
+                template="/WEB-INF/template/masterLayout.xhtml"
                 xmlns:sec="http://www.springframework.org/security/tags">
 
     <ui:define name="extra-headers">
@@ -13,67 +13,77 @@
                 margin: auto;
             }
         </style>
+        <h:outputStylesheet library="default" name="css/custom.css"/>
     </ui:define>
 
     <ui:define name="content">
-        <p:dialog header="Új valuta felvétele" widgetVar="new" modal="true" height="300" width="300" resizable="false">
-            <h:panelGrid columns="2" cellpadding="4">
-                <h:outputLabel for="currencyChooser" value="Valuta"/>
+        <p:dialog header="Új valuta felvétele" widgetVar="new" modal="true" height="300" width="300" resizable="false" draggable="false">
 
-                <p:selectOneListbox id="currencyChooser" value="#{currenciesMBean.selectedEntity.currency}" var="currency" filter="true" filterMatchMode="contains">
-                    <f:selectItems value="#{currenciesMBean.allAvalibleCurrencies}"  />
+            <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto">
+                <h:form>
 
-                    <p:column>
-                        <h:outputText value="#{currency}" />
-                    </p:column>
-                </p:selectOneListbox>
+                    <h:outputLabel for="currencyChooser" value="Valuta"/>
 
-                <h:outputLabel value="Érték" for="inputvalue"/>
-                <pe:inputNumber id="inputvalue"  value="#{currenciesMBean.selectedEntity.quantity}" decimalPlaces="2">  
-                </pe:inputNumber>
+                    <p:selectOneListbox id="currencyChooser" value="#{currenciesMBean.selectedEntity.currency}" var="currency" filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{currenciesMBean.allAvalibleCurrencies}"  />
 
+                        <p:column>
+                            <h:outputText value="#{currency}" />
+                        </p:column>
+                    </p:selectOneListbox>
+
+                    <h:outputLabel value="Érték" for="inputvalue"/>
+                    <pe:inputNumber id="inputvalue"  value="#{currenciesMBean.selectedEntity.quantity}" decimalPlaces="2">  
+                    </pe:inputNumber>
+
+
+                    <p:commandButton type="submit" value="Mentés" update="currency_table" actionListener="#{currenciesMBean.saveEntity}" oncomplete="PF('new').hide()"/>
+                    <p:commandButton type="submit" value="Mégse" oncomplete="PF('new').hide()"/>
+                </h:form>
             </h:panelGrid>
-            <p:commandButton value="Mentés" actionListener="#{currenciesMBean.saveEntity}" update="currency_table" onsuccess="PF('new').hide()"/>
+
         </p:dialog>
+
+        <h:form id="currency_table">
+            <p:dataTable id="table" var="currency" value="#{currenciesMBean.userCurrencies}" paginatorTemplate="{Buttons}" paginator="true">
+
+                <f:facet name="{Buttons}">
+                    <p:commandButton value="Új" actionListener="#{currenciesMBean.newEntity()}" oncomplete="PF('new').show()"/>
+                </f:facet>
+
+                <p:column headerText="#" width="5">
+                    <span class="ui-icon-circle-arrow-s"> </span>
+                </p:column>
+                <p:column headerText="Valuta">
+                    <h:outputText value="#{currency.currency}" >
+                        <f:converter converterId="currenciesCodeConverter"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Mennyiég" >
+                    <h:outputText value="#{currency.quantity}" />
+                </p:column>
+
+                <p:column headerText="Vétel dátuma">
+                    <h:outputText value="#{currency.dateOfBuy}">
+                        <f:converter converterId="dateConverter"/>
+                    </h:outputText>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+    <ui:define name="extra_panel">
         <div class="submenu">
             <div class="panel">
                 <div class="title">
                     <h1>Az Ön valutái</h1>
                 </div>
                 <div class="content">
-                    <h:form id="currency_table">
-
-                        <p:dataTable var="currency" value="#{currenciesMBean.userCurrencies}" paginatorTemplate="{Buttons}" paginator="true">
-
-                            <f:facet name="{Buttons}">
-                                <p:commandButton value="Új" oncomplete="PF('new').show()"/>
-                            </f:facet>
-
-                            <p:column headerText="#">
-                                <span class="ui-icon-circle-arrow-s"> </span>
-                            </p:column>
-                            <p:column headerText="Valuta">
-                                <h:outputText value="#{currency.currency}" >
-                                    <f:converter converterId="currenciesCodeConverter"/>
-                                </h:outputText>
-                            </p:column>
-
-                            <p:column headerText="Mennyiég" >
-                                <h:outputText value="#{currency.quantity}" />
-                            </p:column>
-
-                            <p:column headerText="Vétel dátuma">
-                                <h:outputText value="#{currency.dateOfBuy}">
-                                    <f:converter converterId="dateConverter"/>
-                                </h:outputText>
-                            </p:column>
-
-                        </p:dataTable>
-                    </h:form>
+                    <h:outputLabel value="Test"/>
                 </div>
             </div>
         </div>
-
 
     </ui:define>
 
