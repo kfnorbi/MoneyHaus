@@ -1,10 +1,25 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	template="/WEB-INF/template/masterLayout.xhtml">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template/masterLayout.xhtml">
 
-<ui:define name="content-title">Hello World!</ui:define>
+    <ui:define name="content">
+        <p:selectManyMenu id="advanced" value="#{currenciesMBean.selected}" var="currency" filter="true" filterMatchMode="contains" showCheckbox="true">
+            <f:selectItems value="#{currenciesMBean.allAvalibleCurrencies}">
+
+            </f:selectItems>
+            <p:column>
+                <h:outputText value="#{currency}" title="Valutakód">
+                    <f:converter converterId="currencyConverter"/>
+                </h:outputText>
+            </p:column>
+        </p:selectManyMenu>
+
+
+        <p:calendar id="startTime" value="#{currenciesMBean.startDate}" pattern="MM/dd/yyyy HH:mm:ss" />
+        <p:calendar id="endTime" value="#{currenciesMBean.endDate}" pattern="MM/dd/yyyy HH:mm:ss"  />
+    </ui:define>
 
 </ui:composition>

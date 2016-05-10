@@ -15,6 +15,8 @@ import hu.unideb.inf.moneyhaus.service.UserService;
 import hu.unideb.inf.moneyhaus.vo.UserVO;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Stateless(mappedName="userService")
 @Remote(UserService.class)
@@ -22,8 +24,10 @@ import javax.ejb.TransactionAttributeType;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class UserServiceImpl implements UserService,Serializable{
 
+        private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    
 	@Autowired
-	UserDao userDao;
+	private UserDao userDao;
 	
 	@Override
 	public UserVO findById(Long id) {
@@ -32,8 +36,8 @@ public class UserServiceImpl implements UserService,Serializable{
 
 	@Override
 	public UserVO findByUsername(String username) {
+                logger.debug("Trying to find " + username + ".");
 		return GenericConverter.mapTo(userDao.findByUserName(username), UserVO.class);
-//		return 
 	}	
 	
 }

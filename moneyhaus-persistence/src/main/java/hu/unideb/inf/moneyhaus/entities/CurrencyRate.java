@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Entity implementation class for Entity: CurrencyRate
@@ -21,12 +23,12 @@ import javax.persistence.Table;
 @Table(name = "currency_rate")
 public class CurrencyRate extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     @Column(name = "currency_code")
     private String currencyCode;
 
-    @Column(name = "date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_of_refresh")
     private Date date;
 
     @Column(name = "rate")

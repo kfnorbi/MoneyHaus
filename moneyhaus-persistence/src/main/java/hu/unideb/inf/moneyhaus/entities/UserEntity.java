@@ -38,20 +38,8 @@ public class UserEntity extends BaseEntity {
     @JoinTable(name = "users_roles_sw", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleEntity> roles;
 
-    @OneToMany
-    @JoinColumn(name="user_id")
-    private List<OwnedCurrenciesEntity> currencies;
-
     public UserEntity() {
 
-    }
-
-    public List<OwnedCurrenciesEntity> getCurrencies() {
-        return currencies;
-    }
-
-    public void setCurrencies(List<OwnedCurrenciesEntity> currencies) {
-        this.currencies = currencies;
     }
 
     public String getUserName() {

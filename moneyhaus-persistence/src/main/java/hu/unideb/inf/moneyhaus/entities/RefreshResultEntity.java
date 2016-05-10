@@ -1,6 +1,7 @@
 package hu.unideb.inf.moneyhaus.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,28 +15,28 @@ import javax.persistence.TemporalType;
 @Table(name = "refresh_results")
 public class RefreshResultEntity extends BaseEntity {
 
-	@Column(name = "timestamp")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;
+    @Column(name = "datetime")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "status")
-	private ResultStatusEntity status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private ResultStatusEntity status;
 
-	public Date getDate() {
-		return date;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	public ResultStatusEntity getStatus() {
-		return status;
-	}
+    public ResultStatusEntity getStatus() {
+        return status;
+    }
 
-	public void setStatus(ResultStatusEntity status) {
-		this.status = status;
-	}
+    public void setStatus(ResultStatusEntity status) {
+        this.status = status;
+    }
 
 }

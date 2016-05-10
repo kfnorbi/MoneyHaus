@@ -3,11 +3,38 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions" 
                 template="/WEB-INF/template/sideBaredLayout.xhtml"
                 xmlns:sec="http://www.springframework.org/security/tags">
 
-    <ui:define name="content">
+    <ui:define name="extra-headers">
+        <style>
+            .save-button{
+                margin: auto;
+            }
+        </style>
+    </ui:define>
 
+    <ui:define name="content">
+        <p:dialog header="Új valuta felvétele" widgetVar="new" modal="true" height="300" width="300" resizable="false">
+            <h:panelGrid columns="2" cellpadding="4">
+                <h:outputLabel for="currencyChooser" value="Valuta"/>
+
+                <p:selectOneListbox id="currencyChooser" value="#{currenciesMBean.selectedEntity.currency}" var="currency" filter="true" filterMatchMode="contains">
+                    <f:selectItems value="#{currenciesMBean.allAvalibleCurrencies}"  />
+
+                    <p:column>
+                        <h:outputText value="#{currency}" />
+                    </p:column>
+                </p:selectOneListbox>
+
+                <h:outputLabel value="Érték" for="inputvalue"/>
+                <pe:inputNumber id="inputvalue"  value="#{currenciesMBean.selectedEntity.quantity}" decimalPlaces="2">  
+                </pe:inputNumber>
+
+            </h:panelGrid>
+            <p:commandButton value="Mentés" actionListener="#{currenciesMBean.saveEntity}" update="currency_table" onsuccess="PF('new').hide()"/>
+        </p:dialog>
         <div class="submenu">
             <div class="panel">
                 <div class="title">
@@ -15,13 +42,19 @@
                 </div>
                 <div class="content">
                     <h:form id="currency_table">
-                        <p:dataTable var="currency" value="#{userMBean.user.currencies}" >
+
+                        <p:dataTable var="currency" value="#{currenciesMBean.userCurrencies}" paginatorTemplate="{Buttons}" paginator="true">
+
+                            <f:facet name="{Buttons}">
+                                <p:commandButton value="Új" oncomplete="PF('new').show()"/>
+                            </f:facet>
+
                             <p:column headerText="#">
-                                <h:outputLabel class="ui-icon-circle-arrow-s" />
+                                <span class="ui-icon-circle-arrow-s"> </span>
                             </p:column>
                             <p:column headerText="Valuta">
                                 <h:outputText value="#{currency.currency}" >
-                                    <f:converter converterId="currencyConverter"/>
+                                    <f:converter converterId="currenciesCodeConverter"/>
                                 </h:outputText>
                             </p:column>
 

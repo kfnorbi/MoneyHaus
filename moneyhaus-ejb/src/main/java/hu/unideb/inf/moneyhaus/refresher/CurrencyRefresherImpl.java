@@ -24,11 +24,10 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.interceptor.Interceptors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
@@ -44,8 +43,9 @@ public class CurrencyRefresherImpl implements CurrencyRefresher {
     CurrencyRateDao currencyRateDao;
 
     private final String BASE = "USD";
-
-    //TODO: szar
+    
+    private final Logger logger = LoggerFactory.getLogger(CurrencyRefresherImpl.class);
+            
     @PostConstruct
     public void init() {
 
@@ -63,7 +63,6 @@ public class CurrencyRefresherImpl implements CurrencyRefresher {
     private static final List<String> CURRENCIES;
 
     static {
-        //BULLSHIT REFACTOR NEEDED
 
         List<String> temp = new ArrayList<>();
 
@@ -88,12 +87,10 @@ public class CurrencyRefresherImpl implements CurrencyRefresher {
                 try {
                     rate = query.to(BASE).from(currency).get();
                 }catch(Exception e){
-                    System.out.println("hu.unideb.inf.moneyhaus.refresher.CurrencyRefresherImpl.refresh()");
+                    logger.info("Refreshing " + currency + " failed. Skipping to next entry.");
                 }
                 remoteRates.addAll(rate);
             }
-            //TODO : szar
-            //List<CurrencyRateVO> currencies = GenericConverter.mapTo(rates, CurrencyRateVO.class, "currency-to-exchange");
             List<CurrencyRateVO> currencies = new ArrayList<>();
             for (ExchangeRate r : remoteRates) {
                 currencies.add(ExchangeRateToCurrencyVOConverter.toLocal(r));
@@ -103,8 +100,8 @@ public class CurrencyRefresherImpl implements CurrencyRefresher {
                 if (c.getRate() != null) {
                     currencyRateDao.save(GenericConverter.mapTo(c, CurrencyRate.class));
                 }
-            }
-
+            } 
+            logger.info("Saving " + currencies.size() + " successful!");
         } catch (Exception e) {
             status = RefreshStatus.FAILED;
             throw new CurrencyRefreshingException(e);

@@ -5,6 +5,8 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class UserVO {
 
+    private Long id;
+
     private String userName;
 
     private String password;
@@ -15,18 +17,16 @@ public class UserVO {
 
     private String lastName;
 
-    private List<OwnedCurrency> currencies;
-
     private int age;
 
     private List<RoleVO> roles;
 
-    public List<OwnedCurrency> getCurrencies() {
-        return currencies;
+    public Long getId() {
+        return id;
     }
 
-    public void setCurrencies(List<OwnedCurrency> currencies) {
-        this.currencies = currencies;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUserName() {

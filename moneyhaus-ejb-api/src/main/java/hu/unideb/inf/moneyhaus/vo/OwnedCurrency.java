@@ -14,11 +14,23 @@ import java.util.Date;
  */
 public class OwnedCurrency {
 
+    Long id;
+    
     private BigDecimal quantity;
 
     private String currency;
 
     private Date dateOfBuy;
+
+    UserVO user;
+
+    public UserVO getUser() {
+        return user;
+    }
+
+    public void setUser(UserVO user) {
+        this.user = user;
+    }
 
     public Date getDateOfBuy() {
         return dateOfBuy;
@@ -27,7 +39,7 @@ public class OwnedCurrency {
     public void setDateOfBuy(Date dateOfBuy) {
         this.dateOfBuy = dateOfBuy;
     }
-    
+
     public BigDecimal getQuantity() {
         return quantity;
     }

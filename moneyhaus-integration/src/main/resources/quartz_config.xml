@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job-scheduling-data
-	xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData http://www.quartz-scheduler.org/xml/job_scheduling_data.xsd"
-	version="1.8">
+    xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData http://www.quartz-scheduler.org/xml/job_scheduling_data.xsd"
+    version="1.8">
 
-	<schedule>
-		<job>
-			<name>CurrencyRefresherJob</name>
-			<group>CurrencyRefresher</group>
-			<description>Polls the remote webservice</description>
-			<job-class>hu.unideb.inf.moneyhaus.integration.jobs.CurrencyRefresherJob
-			</job-class>
-		</job>
-		<trigger>
-			<cron>
-				<name>CurrencyTrigger</name>
-				<job-name>CurrencyRefresherJob</job-name>
-				<job-group>CurrencyRefresher</job-group>
-				<cron-expression>0 0/1 * 1/1 * ? *</cron-expression>
-				<!-- <cron-expression>0 0 0/1 1/1 * ? *</cron-expression> -->
-			</cron>
-		</trigger>
-	</schedule>
+    <schedule>
+        <job>
+            <name>CurrencyRefresherJob</name>
+            <group>CurrencyRefresher</group>
+            <description>Polls the remote webservice</description>
+            <job-class>hu.unideb.inf.moneyhaus.integration.jobs.CurrencyRefresherJob
+            </job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>CurrencyTrigger</name>
+                <job-name>CurrencyRefresherJob</job-name>
+                <job-group>CurrencyRefresher</job-group>
+                <cron-expression>0 0 0/1 1/1 * ? *</cron-expression>
+                <!-- <cron-expression>0 0 0/1 1/1 * ? *</cron-expression> -->
+            </cron>
+        </trigger>
+    </schedule>
 
 </job-scheduling-data>
   

@@ -8,8 +8,10 @@ import javax.faces.context.FacesContext;
 
 import hu.unideb.inf.moneyhaus.service.UserService;
 import hu.unideb.inf.moneyhaus.vo.UserVO;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean
+@SessionScoped
 public class UserMBean implements Serializable {
 
 	private static final long serialVersionUID = 7010773534969463937L;

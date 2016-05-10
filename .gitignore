@@ -15,3 +15,9 @@ hs_err_pid*
 .settings
 .project
 .classpath
+/moneyhaus-persistence/target/
+/moneyhaus-ejb/target/
+/moneyhaus-ejb-api/target/
+/moneyhaus-web/target/
+/moneyhaus-integration/target/
+/moneyhaus-ear/target/
