@@ -1,0 +1,11 @@
+div > .ui-commandlink{
+    float: left ;
+    margin-left: 5px;
+    padding: 5px;
+}
+
+div.custombutton{
+    background-color: #ee3233;
+    border: solid 1px;
+    width: 2em;
+}
