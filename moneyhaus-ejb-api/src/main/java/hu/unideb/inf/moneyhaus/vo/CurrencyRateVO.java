@@ -3,7 +3,7 @@ package hu.unideb.inf.moneyhaus.vo;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class CurrencyRateVO {
+public class CurrencyRateVO{
 
     private String currencyCode;
 
@@ -47,5 +47,5 @@ public class CurrencyRateVO {
     public void setRate(BigDecimal rate) {
         this.rate = rate;
     }
-
+    
 }

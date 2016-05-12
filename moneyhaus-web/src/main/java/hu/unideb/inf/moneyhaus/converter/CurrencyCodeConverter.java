@@ -6,6 +6,7 @@
 package hu.unideb.inf.moneyhaus.converter;
 
 import java.util.Currency;
+import java.util.Locale;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.FacesConverter;
@@ -26,7 +27,7 @@ public class CurrencyCodeConverter implements Converter{
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         String currencyCode = (String) value;
-        return Currency.getInstance(currencyCode).getDisplayName();
+        return Currency.getInstance(currencyCode).getDisplayName(Locale.forLanguageTag("hu_HU"));
     }
     
     

@@ -4,8 +4,10 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions" 
-                template="/WEB-INF/template/masterLayout.xhtml"
+                template="/WEB-INF/template/sideBaredLayout.xhtml"
                 xmlns:sec="http://www.springframework.org/security/tags">
+
+    <ui:define name="title">Saját valuták</ui:define> 
 
     <ui:define name="extra-headers">
         <style>
@@ -16,7 +18,7 @@
         <h:outputStylesheet library="default" name="css/custom.css"/>
     </ui:define>
 
-    <ui:define name="content">
+    <ui:define name="content-main">
         <p:dialog header="Új valuta felvétele" widgetVar="new" modal="true" height="300" width="300" resizable="false" draggable="false">
 
             <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto">
@@ -37,18 +39,20 @@
                     </pe:inputNumber>
 
 
-                    <p:commandButton type="submit" value="Mentés" update="currency_table" actionListener="#{currenciesMBean.saveEntity}" oncomplete="PF('new').hide()"/>
-                    <p:commandButton type="submit" value="Mégse" oncomplete="PF('new').hide()"/>
+                    <p:commandButton type="submit" value="Mentés" update="currency_table showOff" actionListener="#{currenciesMBean.saveEntity}" oncomplete="PF('new').hide()"/>
+                    <p:commandButton type="submit" value="Mégse" oncomplete="PF('new').hide()" actionListener="#{currenciesMBean.cancelEntity}"/>
                 </h:form>
             </h:panelGrid>
 
         </p:dialog>
 
         <h:form id="currency_table">
-            <p:dataTable id="table" var="currency" value="#{currenciesMBean.userCurrencies}" paginatorTemplate="{Buttons}" paginator="true">
+            <p:dataTable id="table" var="currency" value="#{currenciesMBean.userCurrencies}" paginatorTemplate="{Buttons}" paginator="true" 
+                         selectionMode="single" selection="#{currenciesMBean.selectedEntity}" rowKey="#{currency.id}">
 
                 <f:facet name="{Buttons}">
                     <p:commandButton value="Új" actionListener="#{currenciesMBean.newEntity()}" oncomplete="PF('new').show()"/>
+                    <p:commandButton value="Törlés" actionListener="#{currenciesMBean.deleteEntity()}" update="currency_table showOff" disabled="#{currenciesMBean.selected != null}"/>
                 </f:facet>
 
                 <p:column headerText="#" width="5">
@@ -73,17 +77,21 @@
             </p:dataTable>
         </h:form>
     </ui:define>
-    <ui:define name="extra_panel">
-        <div class="submenu">
-            <div class="panel">
-                <div class="title">
-                    <h1>Az Ön valutái</h1>
-                </div>
-                <div class="content">
-                    <h:outputLabel value="Test"/>
-                </div>
-            </div>
-        </div>
+
+    <ui:define name="sidebar-title">
+        Az Ön valutái
+    </ui:define>
+    <ui:define name="sidebar-content">
+        <h:form id="showOff">
+            <p:growl id="growl" showDetail="true" sticky="true" />  
+            <h:panelGrid columns="2">
+                <p:selectOneMenu id="showOffSelect" value="#{currenciesMBean.showOffCurrencyCode}">
+                    <f:selectItems value="#{currenciesMBean.allAvalibleCurrencies}" />
+                    <p:ajax update="showOff"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="#{currenciesMBean.sumCurrencies()}"/>
+            </h:panelGrid>
+        </h:form>
 
     </ui:define>
 

@@ -19,4 +19,6 @@ public interface OwnedCurrencyService {
     
     public void save(OwnedCurrency ownedCurrency);
     
+    public void delete(OwnedCurrency ownedCurrency);
+    
 }

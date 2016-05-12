@@ -7,7 +7,8 @@ package hu.unideb.inf.moneyhaus.service;
 
 import hu.unideb.inf.moneyhaus.service.exception.NoCurrencyDataException;
 import hu.unideb.inf.moneyhaus.vo.CurrencyRateVO;
-import java.util.Currency;
+import hu.unideb.inf.moneyhaus.vo.OwnedCurrency;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -15,9 +16,11 @@ import java.util.List;
  * @author Nolbelt
  */
 public interface CurrencyBaseConverter {
-    
-    public CurrencyRateVO convertTo(CurrencyRateVO currency,Currency newBase) throws NoCurrencyDataException;
-    
-    public List<CurrencyRateVO> convertTo(List<CurrencyRateVO> currencies,Currency newBase) throws NoCurrencyDataException;
-    
+
+    public CurrencyRateVO convertTo(CurrencyRateVO from, CurrencyRateVO to);
+
+    public BigDecimal getValue(OwnedCurrency currency, String rate) throws NoCurrencyDataException;
+
+    public BigDecimal getValue(List<OwnedCurrency> currencies, String rate) throws NoCurrencyDataException;
+
 }

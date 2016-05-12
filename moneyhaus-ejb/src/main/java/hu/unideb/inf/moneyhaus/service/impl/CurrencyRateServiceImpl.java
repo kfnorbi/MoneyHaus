@@ -41,8 +41,8 @@ public class CurrencyRateServiceImpl implements CurrencyRateService {
     }
 
     @Override
-    public Map<Currency, List<CurrencyRateVO>> findCurrenciesByCode(List<Currency> currencies) throws CurrencyOverloadException{
-        if (currencies.size() > MAXIMUM_REQUESTED_CURRENCIES){
+    public Map<Currency, List<CurrencyRateVO>> findCurrenciesByCode(List<Currency> currencies) throws CurrencyOverloadException {
+        if (currencies.size() > MAXIMUM_REQUESTED_CURRENCIES) {
             throw new CurrencyOverloadException("The requested currency quantity cannot be over " + MAXIMUM_REQUESTED_CURRENCIES);
         }
         Map<Currency, List<CurrencyRateVO>> rates = new HashMap<>();
@@ -50,6 +50,22 @@ public class CurrencyRateServiceImpl implements CurrencyRateService {
             rates.put(c, GenericConverter.mapTo(currencyDao.findByCurrencyCodeOrderByDate(c.getCurrencyCode()), CurrencyRateVO.class));
         }
         return rates;
+    }
+
+    @Override
+    public CurrencyRateVO findLatestCurrency(String currencyCode) {
+        return GenericConverter.mapTo(currencyDao.findByCurrencyCodeTopOrderByDate(currencyCode), CurrencyRateVO.class);
+    }
+
+    @Override
+    public List<String> findTheBiggestGrowthCurrencies() {
+        return null;
+//        return currencyDao.findTheBiggestGrowthCurrencies();
+    }
+
+    @Override
+    public List<String> getAllManagedCurrencies() {
+        return currencyDao.findAllGrouppedByCurrencyCode();
     }
 
 }

@@ -14,4 +14,10 @@ public interface CurrencyRateService {
         
         public Map<Currency,List<CurrencyRateVO>> findCurrenciesByCode(List<Currency> currencies) throws CurrencyOverloadException;
         
+        public CurrencyRateVO findLatestCurrency(String currencyCode);
+        
+        public List<String> findTheBiggestGrowthCurrencies();
+        
+        public List<String> getAllManagedCurrencies();
+        
 }

@@ -28,11 +28,11 @@
             <artifactId>moneyhaus-web</artifactId>
             <type>war</type>
         </dependency>
-<!--        <dependency>
+        <dependency>
             <groupId>hu.unideb.inf</groupId>
             <artifactId>moneyhaus-integration</artifactId>
             <type>war</type>
-        </dependency>-->
+        </dependency>
     </dependencies>
 
     <build>
@@ -49,11 +49,11 @@
                             <artifactId>moneyhaus-web</artifactId>
                             <contextRoot>/moneyhaus</contextRoot>
                         </webModule>
-<!--                        <webModule>
+                        <webModule>
                             <groupId>hu.unideb.inf</groupId>
                             <artifactId>moneyhaus-integration</artifactId>
                             <contextRoot>/null</contextRoot>
-                        </webModule>-->
+                        </webModule>
                         <ejbModule>
                             <groupId>hu.unideb.inf</groupId>
                             <artifactId>moneyhaus-ejb</artifactId>
