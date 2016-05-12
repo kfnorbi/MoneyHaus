@@ -7,11 +7,20 @@
 
     <ui:define name="content">
 
-
+        <ui:insert name="mainbar-content"/>
     </ui:define>
 
     <ui:define name="extra_panel">
-        
+        <div class="submenu">
+            <div class="panel">
+                <div class="title">
+                    <h1><ui:insert name="sidebar-title"/></h1>
+                </div>
+                <div class="content">
+                    <ui:insert name="sidebar-content"/>
+                </div>
+            </div>
+        </div>
     </ui:define>
 
 </ui:composition>

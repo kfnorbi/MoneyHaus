@@ -5,21 +5,24 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template/masterLayout.xhtml">
 
-    <ui:define name="content">
-        <p:selectManyMenu id="advanced" value="#{currenciesMBean.selected}" var="currency" filter="true" filterMatchMode="contains" showCheckbox="true">
-            <f:selectItems value="#{currenciesMBean.allAvalibleCurrencies}">
+    <ui:define name="content-main">
+        <p:selectManyMenu id="advanced" value="#{homeMBean.selected}" var="currency" filter="true" filterMatchMode="contains" showCheckbox="true">
+            <f:selectItems value="#{homeMBean.allAvalibleCurrencies}">
 
             </f:selectItems>
+            <p:ajax update="chart" /> 
             <p:column>
                 <h:outputText value="#{currency}" title="Valutakód">
-                    <f:converter converterId="currencyConverter"/>
+                    <!--<f:converter converterId="currencyConverter"/>-->
                 </h:outputText>
             </p:column>
         </p:selectManyMenu>
 
 
-        <p:calendar id="startTime" value="#{currenciesMBean.startDate}" pattern="MM/dd/yyyy HH:mm:ss" />
-        <p:calendar id="endTime" value="#{currenciesMBean.endDate}" pattern="MM/dd/yyyy HH:mm:ss"  />
+        <p:calendar id="startTime" value="#{homeMBean.startDate}" pattern="MM/dd/yyyy HH:mm:ss" />
+        <p:calendar id="endTime" value="#{homeMBean.endDate}" pattern="MM/dd/yyyy HH:mm:ss"  />
+        <p:chart id="chart" type="line" model="#{homeMBean.linearModel}" style="height:300px;"/>
+
     </ui:define>
 
 </ui:composition>

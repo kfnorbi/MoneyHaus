@@ -14,6 +14,8 @@ import hu.unideb.inf.moneyhaus.vo.OwnedCurrency;
 import hu.unideb.inf.moneyhaus.vo.UserVO;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
@@ -24,6 +26,7 @@ import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
  */
 @Stateless
 @Interceptors(SpringBeanAutowiringInterceptor.class)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class OwnedCurrencyServiceImpl implements OwnedCurrencyService{
     
     @Autowired
@@ -38,6 +41,11 @@ public class OwnedCurrencyServiceImpl implements OwnedCurrencyService{
     @Override
     public void save(OwnedCurrency ownedCurrency) {
         ownedCurrencyDao.save(GenericConverter.mapTo(ownedCurrency, OwnedCurrenciesEntity.class));
+    }
+
+    @Override
+    public void delete(OwnedCurrency ownedCurrency) {
+        ownedCurrencyDao.delete(GenericConverter.mapTo(ownedCurrency, OwnedCurrenciesEntity.class));
     }
     
 }

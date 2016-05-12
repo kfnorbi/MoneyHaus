@@ -14,27 +14,35 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
-
 import hu.unideb.inf.moneyhaus.service.CurrencyRateService;
 import hu.unideb.inf.moneyhaus.service.OwnedCurrencyService;
+import hu.unideb.inf.moneyhaus.service.CurrencyBaseConverter;
+import hu.unideb.inf.moneyhaus.service.exception.NoCurrencyDataException;
 import hu.unideb.inf.moneyhaus.vo.OwnedCurrency;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
-import javafx.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Nolbelt
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class CurrenciesMBean implements Serializable {
 
     Currency selected;
 
-    public OwnedCurrency selectedEntity;
+    String showOffCurrencyCode = "GBP";
+
+    private OwnedCurrency selectedEntity;
 
     @EJB
     CurrencyRateService currencyRateService;
@@ -42,8 +50,16 @@ public class CurrenciesMBean implements Serializable {
     @EJB
     OwnedCurrencyService ownedCurrencyService;
 
+    @EJB
+    CurrencyBaseConverter currencyBaseConverter;
+
     @ManagedProperty("#{userMBean}")
     UserMBean userMBean;
+
+    @PostConstruct
+    public void init() {
+//        newEntity();
+    }
 
     public UserMBean getUserMBean() {
         return userMBean;
@@ -66,12 +82,7 @@ public class CurrenciesMBean implements Serializable {
     }
 
     public List<String> getAllAvalibleCurrencies() {
-        List<String> tmp = new ArrayList<>();
-        for(Currency c : Currency.getAvailableCurrencies()){
-            tmp.add(c.getCurrencyCode());
-        }
-        Collections.sort(tmp);
-        return tmp;
+        return currencyRateService.getAllManagedCurrencies();
     }
 
     public OwnedCurrency getSelectedEntity() {
@@ -92,8 +103,35 @@ public class CurrenciesMBean implements Serializable {
         return ownedCurrencyService.findByUser(userMBean.getUser());
     }
 
-    public void saveEntity(ActionEvent actionEvent){
+    public void saveEntity() {
         ownedCurrencyService.save(selectedEntity);
+        selectedEntity=null;
     }
     
+    public void cancelEntity(){
+        selectedEntity=null;
+    }
+
+    public BigDecimal sumCurrencies() {
+        try {
+            return currencyBaseConverter.getValue(getUserCurrencies(), showOffCurrencyCode);
+        } catch (NoCurrencyDataException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Hiba!","Nincs ilyen adat!"));
+            return BigDecimal.ZERO;
+        }
+
+    }
+
+    public String getShowOffCurrencyCode() {
+        return showOffCurrencyCode;
+    }
+
+    public void setShowOffCurrencyCode(String showOffCurrencyCode) {
+        this.showOffCurrencyCode = showOffCurrencyCode;
+    }
+    
+    public void deleteEntity(){
+        ownedCurrencyService.delete(selectedEntity);
+    }
+
 }

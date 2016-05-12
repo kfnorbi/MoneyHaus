@@ -26,8 +26,8 @@ public class CurrencyConverter implements Converter{
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        Currency currency = (Currency)value;
-        return currency.getCurrencyCode();
+        String currency = (String)value;
+        return currency;
     }
     
 }

@@ -42,7 +42,7 @@ public class CurrencyRefresherImpl implements CurrencyRefresher {
     @Autowired
     CurrencyRateDao currencyRateDao;
 
-    private final String BASE = "USD";
+    private final String BASE = "IQD";
     
     private final Logger logger = LoggerFactory.getLogger(CurrencyRefresherImpl.class);
             

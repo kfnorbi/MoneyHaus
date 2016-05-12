@@ -22,7 +22,7 @@ public class OwnedCurrency {
 
     private Date dateOfBuy;
 
-    UserVO user;
+    private UserVO user;
 
     public UserVO getUser() {
         return user;
@@ -54,6 +54,14 @@ public class OwnedCurrency {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

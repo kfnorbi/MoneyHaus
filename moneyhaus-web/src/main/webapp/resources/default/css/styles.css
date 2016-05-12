@@ -57,15 +57,15 @@ BANNER CLASSES
 /*-------------------------------------------------
 MAIN COLUMAS CLASSES
 -------------------------------------------------*/
-.primary-col{ width:100%; padding-right:40px;}
+.primary-col{ width:85%; padding-right:40px; float:right;}
 .primary-col h1{ padding-bottom:30px;}
-.side-bar{width:290px; float:right;}
+.side-bar{width: 10%; float: right; margin-top: 25px;}
 .side-bar h1,h2{padding-bottom:20px;}
 .side-bar .content p{ padding-bottom:20px; }
 .side-bar p span{ color:#66a7c5; text-decoration:underline;}
 .side-bar a{text-decoration:underline; color:#ee3233;}
 .side-bar a:hover{color:#66a7c5;}
-.search, .testimonnial, .submenu, .quick-contact{padding-bottom:30px;overflow:hidden; border-bottom:#f2f2f2 solid 1px; margin-bottom:40px; width:auto;}
+.search, .testimonnial, .submenu, .quick-contact{padding-bottom:30px;overflow:hidden; margin-bottom:40px; width:auto;}
 
 
 .generic{ float:none; width:100%;}
