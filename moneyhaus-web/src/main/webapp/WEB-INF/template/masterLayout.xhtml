@@ -39,18 +39,19 @@
                         <ul>
                             <li><a href="#{request.contextPath}/index.xhtml">Home</a></li>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
-
                                 <li><h:outputLink value="#{request.contextPath}/secured/recommendation.xhtml">Ajánlatok</h:outputLink></li>
                                 <li><h:outputLink value="#{request.contextPath}/secured/currencies.xhtml">Valuták</h:outputLink></li>
                             </sec:authorize>
-                            <sec:authorize access="!hasRole('ROLE_ADMIN')">
+                            <sec:authorize access="!hasRole('ROLE_USER')">
                                 <li><h:outputLink
-                                        value="#{request.contextPath}/public/login.xhtml"
-                                        rendered="#{request.userPrincipal == null}">Bejelentkezés</h:outputLink></li>
+                                        value="#{request.contextPath}/public/login.xhtml">Bejelentkezés</h:outputLink></li>
                             </sec:authorize>
-                            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <li><h:outputLink value="#{request.contextPath}/logout"
-                                                  rendered="#{request.userPrincipal != null}">
+                            <sec:authorize access="!hasRole('ROLE_USER')">
+                                <li><h:outputLink
+                                        value="#{request.contextPath}/public/registration.xhtml">Regisztráció</h:outputLink></li>
+                            </sec:authorize>
+                            <sec:authorize access="hasRole('ROLE_USER')">
+                                <li><h:outputLink value="#{request.contextPath}/logout">
                                         Kijelentkezés(<h:outputText value="#{userMBean.user}">
                                             <f:converter converterId="userConverter" />
                                         </h:outputText>)
