@@ -13,17 +13,21 @@ import lombok.Getter;
 import lombok.Setter;
 
 @MappedSuperclass
-@Getter
-@Setter
 public abstract class BaseEntity implements Serializable {
 
-	@Getter(value = AccessLevel.NONE)
-	@Setter(value = AccessLevel.NONE)
-	@Transient
-	protected static final long serialVersionUID = -8607098948552104336L;
+    @Transient
+    protected static final long serialVersionUID = -8607098948552104336L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }

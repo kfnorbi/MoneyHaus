@@ -9,3 +9,7 @@ div.custombutton{
     border: solid 1px;
     width: 2em;
 }
+
+.recommendation-bar{
+    margin-top: 40px;
+}

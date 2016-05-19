@@ -18,8 +18,25 @@
                 <name>CurrencyTrigger</name>
                 <job-name>CurrencyRefresherJob</job-name>
                 <job-group>CurrencyRefresher</job-group>
-                <cron-expression>0 0/10 * 1/1 * ? *</cron-expression>
+                <cron-expression>0 0/5 * 1/1 * ? *</cron-expression>
                 <!-- <cron-expression>0 0 0/1 1/1 * ? *</cron-expression> -->
+            </cron>
+        </trigger>
+        
+        
+        <job>
+            <name>DailyAverageRefresherJob</name>
+            <group>AverageRefresherGroup</group>
+            <description>Calculates the averages of the currencies polled on the day</description>
+            <job-class>hu.unideb.inf.moneyhaus.integration.jobs.CurrencyAvarageCalculatorJob
+            </job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>DailyAverageTrigger</name>
+                <job-name>DailyAverageRefresherJob</job-name>
+                <job-group>AverageRefresherGroup</job-group>
+                <cron-expression>0 0 0 1/1 * ? *</cron-expression>
             </cron>
         </trigger>
     </schedule>

@@ -7,7 +7,7 @@
                 template="/WEB-INF/template/masterLayout.xhtml"
                 xmlns:sec="http://www.springframework.org/security/tags">
 
-    <ui:define name="title">Bejelentkezés</ui:define>
+    <ui:define name="title">Regisztráció</ui:define>
 
     <ui:define name="extra-headers">
         <h:outputScript library="default" name="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"/>
@@ -18,10 +18,10 @@
     </ui:define>
 
     <ui:define name="content-main">
-        <h:form>
+        <h:form>                
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
+
             <h:panelGrid columns="2">
-                <p:growl id="growl" showDetail="true" sticky="true" /> 
-                <spacer/>
                 <p:outputLabel for="lastName" value="Vezetéknév:"/>
                 <p:inputText id="lastName" value="#{registrationMBean.registrationRequest.lastName}" required="true" requiredMessage="Keresztnév megadása kötelező!"/>
 

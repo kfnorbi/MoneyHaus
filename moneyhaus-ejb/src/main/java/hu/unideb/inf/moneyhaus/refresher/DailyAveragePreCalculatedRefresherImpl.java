@@ -1,0 +1,59 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package hu.unideb.inf.moneyhaus.refresher;
+
+import hu.unideb.inf.moneyhaus.service.CurrencyRateService;
+import hu.unideb.inf.moneyhaus.service.DailyAveragePreCalculated;
+import hu.unideb.inf.moneyhaus.service.DailyAveragePreCalculatedService;
+import hu.unideb.inf.moneyhaus.service.RefreshResultService;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
+/**
+ *
+ * @author Nolbelt
+ */
+@Stateless
+@Remote(DailyAveragePreCalculatedRefresher.class)
+public class DailyAveragePreCalculatedRefresherImpl implements DailyAveragePreCalculatedRefresher {
+
+    @EJB
+    DailyAveragePreCalculatedService dailyAveragePreCalculatedService;
+
+    @EJB
+    CurrencyRateService currencyRateService;
+
+    @EJB
+    RefreshResultService refreshResultService;
+
+    @Override
+    public void refresh() {
+        final List<String> currencies = currencyRateService.getAllManagedCurrencies();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 1);
+        final Date date = calendar.getTime();
+        List<DailyAveragePreCalculated> result = new LinkedList<>();
+        for (String currencyCode : currencies) {
+            try{
+                Double avg = currencyRateService.findAverageOnDay(currencyCode, date);
+                DailyAveragePreCalculated dailyAverage = new DailyAveragePreCalculated();
+                dailyAverage.setAverage(avg);
+                dailyAverage.setDate(date);
+                dailyAverage.setCurrencyCode(currencyCode);
+                result.add(dailyAverage);
+            }catch(Exception e){
+                
+            }
+        }
+        dailyAveragePreCalculatedService.save(result);
+    }
+
+}

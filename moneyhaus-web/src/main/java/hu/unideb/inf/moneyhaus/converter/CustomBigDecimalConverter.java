@@ -5,32 +5,30 @@
  */
 package hu.unideb.inf.moneyhaus.converter;
 
-import java.util.Currency;
-import java.util.Locale;
+import java.math.BigDecimal;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.FacesConverter;
+import javax.faces.convert.BigDecimalConverter;
 import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 
 /**
  *
  * @author Nolbelt
  */
-@FacesConverter("currenciesCodeConverter")
-public class CurrencyCodeConverter implements Converter{
+@FacesConverter("customBigDecimalConverter")
+public class CustomBigDecimalConverter extends BigDecimalConverter{
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        throw new UnsupportedOperationException("Not supported");
+        return super.getAsObject(context, component, value);
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        String currencyCode = (String) value;
-        Locale locale = context.getViewRoot().getLocale();
-        return Currency.getInstance(currencyCode).getDisplayName(locale);
+        BigDecimal decimal = (BigDecimal)value;
+        decimal = decimal.setScale(2);
+        return super.getAsString(context, component, decimal);
     }
-    
     
 }

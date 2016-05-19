@@ -57,9 +57,9 @@ BANNER CLASSES
 /*-------------------------------------------------
 MAIN COLUMAS CLASSES
 -------------------------------------------------*/
-.primary-col{ width:85%; padding-right:40px; float:right;}
+.primary-col{ width:80%; float:left;}
 .primary-col h1{ padding-bottom:30px;}
-.side-bar{width: 10%; float: right; margin-top: 25px;}
+.side-bar{width: 10%; float: left; margin-top: 25px; margin-left: 0.5%}
 .side-bar h1,h2{padding-bottom:20px;}
 .side-bar .content p{ padding-bottom:20px; }
 .side-bar p span{ color:#66a7c5; text-decoration:underline;}
@@ -91,8 +91,8 @@ SEARC CLASSES
 SUBMENU CLASSES
 -------------------------------------------------*/
 
-.submenu{float:right;}
-.submenu ul li{ list-style:url("#{resource['default/images/arrow2.png']}") inside; border-bottom:#f2f2f2 solid 1px; line-height:40px;}
+.submenu{float:left; margin-left: 1%}
+.submenu ul li{border-bottom:#f2f2f2 solid 1px; line-height:40px;}
 .submenu ul li.-noborder-bottom{border-bottom:none;}
 .submenu ul li a{text-decoration:none; color:#939d9f;}
 .submenu ul li a:hover{color:#ee3233;}

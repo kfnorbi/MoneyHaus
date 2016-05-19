@@ -11,8 +11,8 @@
 
     <ui:define name="extra-headers">
         <style>
-            .save-button{
-                margin: auto;
+            .new-form{
+                text-align: center;
             }
         </style>
         <h:outputStylesheet library="default" name="css/custom.css"/>
@@ -21,9 +21,9 @@
     <ui:define name="content-main">
         <p:dialog header="Új valuta felvétele" widgetVar="new" modal="true" height="300" width="300" resizable="false" draggable="false">
 
-            <h:panelGrid columns="2" cellpadding="4" style="margin:0 auto">
-                <h:form>
 
+            <h:form class="new-form">
+                <h:panelGrid columns="2">
                     <h:outputLabel for="currencyChooser" value="Valuta"/>
 
                     <p:selectOneListbox id="currencyChooser" value="#{currenciesMBean.selectedEntity.currency}" var="currency" filter="true" filterMatchMode="contains">
@@ -38,11 +38,12 @@
                     <pe:inputNumber id="inputvalue"  value="#{currenciesMBean.selectedEntity.quantity}" decimalPlaces="2">  
                     </pe:inputNumber>
 
-
                     <p:commandButton type="submit" value="Mentés" update="currency_table showOff" actionListener="#{currenciesMBean.saveEntity}" oncomplete="PF('new').hide()"/>
-                    <p:commandButton type="submit" value="Mégse" oncomplete="PF('new').hide()" actionListener="#{currenciesMBean.cancelEntity}"/>
-                </h:form>
-            </h:panelGrid>
+                    <p:commandButton type="submit" value="Mégse" oncomplete="PF('new').hide()" update="currency_table" actionListener="#{currenciesMBean.cancelEntity}"/>
+
+                </h:panelGrid>
+            </h:form>
+
 
         </p:dialog>
 
@@ -52,7 +53,7 @@
 
                 <f:facet name="{Buttons}">
                     <p:commandButton value="Új" actionListener="#{currenciesMBean.newEntity()}" oncomplete="PF('new').show()"/>
-                    <p:commandButton value="Törlés" actionListener="#{currenciesMBean.deleteEntity()}" update="currency_table showOff" disabled="#{currenciesMBean.selected != null}"/>
+                    <p:commandButton id="delete" value="Törlés" actionListener="#{currenciesMBean.deleteEntity()}" update="currency_table showOff" disabled="#{currenciesMBean.selected != null}"/>
                 </f:facet>
 
                 <p:column headerText="#" width="5">
@@ -83,7 +84,7 @@
     </ui:define>
     <ui:define name="sidebar-content">
         <h:form id="showOff">
-            <p:growl id="growl" showDetail="true" sticky="true" />  
+            <!--<p:growl id="growl" showDetail="true" sticky="true" />-->  
             <h:panelGrid columns="2">
                 <p:selectOneMenu id="showOffSelect" value="#{currenciesMBean.showOffCurrencyCode}">
                     <f:selectItems value="#{currenciesMBean.allAvalibleCurrencies}" />
@@ -92,7 +93,23 @@
                 <p:outputLabel value="#{currenciesMBean.sumCurrencies()}"/>
             </h:panelGrid>
         </h:form>
+        <div class="recommendation-bar">
+            <h:form id="recommendation">
+                <p:carousel value="#{currenciesMBean.recommendedCurrencies}" headerText="Ajánljuk" var="currency" itemStyle="height:10%;text-align:center" numVisible="1" 
+                            easing="easeOutBounce" style="width:1%">
+                    <h:panelGrid columns="2" style="width: 100%" columnClasses="label,value">
 
+                        <f:facet name="header">
+                            <h:outputText value="#{currency.currency}" ><f:converter converterId="currenciesCodeConverter"/></h:outputText>
+                        </f:facet>
+                        <h:outputText value="Növekedés:" />
+                        <h:outputText value="#{currency.growth}" ></h:outputText>
+                        <h:outputText value="Dátum:" />
+                        <h:outputText value="#{currency.date}" ><f:converter converterId="dateConverter"/></h:outputText>
+                    </h:panelGrid>
+                </p:carousel> 
+            </h:form>
+        </div>
     </ui:define>
 
 </ui:composition>

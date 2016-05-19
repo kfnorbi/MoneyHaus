@@ -6,8 +6,6 @@
 package hu.unideb.inf.moneyhaus.managedbeans;
 
 import hu.unideb.inf.moneyhaus.security.UserMBean;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Currency;
 import java.util.List;
 
@@ -17,13 +15,13 @@ import javax.faces.bean.ManagedBean;
 import hu.unideb.inf.moneyhaus.service.CurrencyRateService;
 import hu.unideb.inf.moneyhaus.service.OwnedCurrencyService;
 import hu.unideb.inf.moneyhaus.service.CurrencyBaseConverter;
+import hu.unideb.inf.moneyhaus.service.PreCalculatedRecommendationService;
 import hu.unideb.inf.moneyhaus.service.exception.NoCurrencyDataException;
 import hu.unideb.inf.moneyhaus.vo.OwnedCurrency;
+import hu.unideb.inf.moneyhaus.vo.PreCalculatedRecommendation;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
@@ -52,6 +50,9 @@ public class CurrenciesMBean implements Serializable {
 
     @EJB
     CurrencyBaseConverter currencyBaseConverter;
+
+    @EJB
+    PreCalculatedRecommendationService preCalculatedRecommendationService;
 
     @ManagedProperty("#{userMBean}")
     UserMBean userMBean;
@@ -105,18 +106,19 @@ public class CurrenciesMBean implements Serializable {
 
     public void saveEntity() {
         ownedCurrencyService.save(selectedEntity);
-        selectedEntity=null;
+        selectedEntity = null;
     }
-    
-    public void cancelEntity(){
-        selectedEntity=null;
+
+    public void cancelEntity() {
+        selectedEntity = null;
     }
 
     public BigDecimal sumCurrencies() {
         try {
-            return currencyBaseConverter.getValue(getUserCurrencies(), showOffCurrencyCode);
+            BigDecimal result = currencyBaseConverter.getValue(getUserCurrencies(), showOffCurrencyCode);
+            return result;
         } catch (NoCurrencyDataException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Hiba!","Nincs ilyen adat!"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Hiba!", "Nincs ilyen adat!"));
             return BigDecimal.ZERO;
         }
 
@@ -129,9 +131,13 @@ public class CurrenciesMBean implements Serializable {
     public void setShowOffCurrencyCode(String showOffCurrencyCode) {
         this.showOffCurrencyCode = showOffCurrencyCode;
     }
-    
-    public void deleteEntity(){
+
+    public void deleteEntity() {
         ownedCurrencyService.delete(selectedEntity);
+    }
+
+    public List<PreCalculatedRecommendation> getRecommendedCurrencies() {
+        return preCalculatedRecommendationService.getBiggestRecommendations();
     }
 
 }

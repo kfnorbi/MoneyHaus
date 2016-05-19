@@ -2,15 +2,10 @@ package hu.unideb.inf.moneyhaus.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,7 +26,7 @@ public class CurrencyRate extends BaseEntity implements Serializable {
     @Column(name = "date_of_refresh")
     private Date date;
 
-    @Column(name = "rate")
+    @Column(name = "rate",precision = 20,scale = 10)
     private BigDecimal rate;
 
     @Column(name = "base")

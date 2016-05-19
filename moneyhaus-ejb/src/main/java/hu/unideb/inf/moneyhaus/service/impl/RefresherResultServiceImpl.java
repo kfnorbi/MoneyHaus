@@ -11,6 +11,7 @@ import hu.unideb.inf.moneyhaus.entities.RefreshResultEntity;
 import hu.unideb.inf.moneyhaus.repositories.RefreshResultDao;
 import hu.unideb.inf.moneyhaus.service.RefreshResultService;
 import hu.unideb.inf.moneyhaus.vo.RefreshResult;
+import java.util.Date;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
@@ -19,29 +20,18 @@ import javax.ejb.TransactionAttributeType;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class RefresherResultServiceImpl implements RefreshResultService {
 
-	@Autowired
-	RefreshResultDao refreshResultDao;
+    @Autowired
+    RefreshResultDao refreshResultDao;
 
-	@Override
-	public void save(RefreshResult result) {
-		RefreshResultEntity entity = GenericConverter.mapTo(result, RefreshResultEntity.class);
-		refreshResultDao.save(entity);
-	}
+    @Override
+    public void save(RefreshResult result) {
+        RefreshResultEntity entity = GenericConverter.mapTo(result, RefreshResultEntity.class);
+        refreshResultDao.save(entity);
+    }
 
-	@Override
-	public RefreshResult findLastSuccessful() {
-		// return
-		// GenericConverter.mapTo(refreshResultDao.findLastSuccessfulRefresh(),
-		// RefreshResult.class);
-		return null;
-	}
-
-	@Override
-	public RefreshResult findLastUnuccessful() {
-		// return
-		// GenericConverter.mapTo(refreshResultDao.findLastUnsuccessfulRefresh(),
-		// RefreshResult.class);
-		return null;
-	}
+    @Override
+    public Date findLastSuccessful() {
+        return refreshResultDao.findLastSuccessfulRefreshmentDate();
+    }
 
 }
