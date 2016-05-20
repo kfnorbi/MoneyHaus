@@ -11,13 +11,19 @@ import hu.unideb.inf.moneyhaus.vo.RegistrationRequest;
 import java.util.List;
 
 /**
+ * This class validates
+ * {@link hu.unideb.inf.moneyhaus.vo.RegistrationRequest RegistrationRequest}s.
  *
- * @author Nolbelt
  */
-public class RegistrationRequestValidator extends  AbstractRuleValidator<RegistrationRequest>{
+public class RegistrationRequestValidator extends AbstractRuleValidator<RegistrationRequest> {
 
+    /**
+     * Constructor.
+     *
+     * @param rules the rules to validate a registrate request by
+     */
     public RegistrationRequestValidator(List<ValidationRule<RegistrationRequest>> rules) {
         super(rules);
     }
-    
+
 }

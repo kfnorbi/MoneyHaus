@@ -16,13 +16,20 @@ import javax.naming.InitialContext;
 import org.hibernate.exception.spi.ViolatedConstraintNameExtracter;
 
 /**
+ * This class checks if the request's username has been occupied.
  *
- * @author Nolbelt
+ *
  */
 public class ExistingUserNameValidationRule implements ValidationRule<RegistrationRequest> {
 
+    /**
+     * UserService.
+     */
     UserService userService;
 
+    /**
+     * Default constructor.
+     */
     public ExistingUserNameValidationRule() {
         InitialContext ctx = null;
         try {
@@ -41,11 +48,18 @@ public class ExistingUserNameValidationRule implements ValidationRule<Registrati
 
     }
 
+    /**
+     * A username existence validation rule.
+     *
+     * @param entity the entity to be validated
+     * @return {@link java.util.List List} of validation violations if there are
+     * any, otherwise an empty list
+     */
     @Override
     public List<ValidationViolation> validate(RegistrationRequest entity) {
-        if (userService.exists(entity.getUserName().trim())){
+        if (userService.exists(entity.getUserName().trim())) {
             return Arrays.asList(new ValidationViolation("username", "Ez a felhasználónév már foglalt!"));
-        }else{
+        } else {
             return Collections.<ValidationViolation>emptyList();
         }
     }

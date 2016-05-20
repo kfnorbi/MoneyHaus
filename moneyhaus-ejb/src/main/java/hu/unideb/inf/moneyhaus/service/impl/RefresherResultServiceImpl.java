@@ -15,20 +15,34 @@ import java.util.Date;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+/**
+ * This class implements methods to persist
+ * {@link hu.unideb.inf.moneyhaus.vo.RefreshResult RefreshResult}s. This can be
+ * used in the future to calculate the efficency of the currency rate provier.
+ */
 @Stateless
 @Interceptors(SpringBeanAutowiringInterceptor.class)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class RefresherResultServiceImpl implements RefreshResultService {
 
+    /**
+     * RefreshResultDao.
+     */
     @Autowired
     RefreshResultDao refreshResultDao;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void save(RefreshResult result) {
         RefreshResultEntity entity = GenericConverter.mapTo(result, RefreshResultEntity.class);
         refreshResultDao.save(entity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Date findLastSuccessful() {
         return refreshResultDao.findLastSuccessfulRefreshmentDate();

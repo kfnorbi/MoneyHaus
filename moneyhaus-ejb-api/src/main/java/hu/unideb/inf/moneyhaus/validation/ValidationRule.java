@@ -10,11 +10,18 @@ import java.util.List;
 
 /**
  *
- * @author Nolbelt
+ * An interface to validate objects.
+ *
+ * @param <T> the object type to be validated
  */
 public interface ValidationRule<T> {
-    
-    public List
-        <ValidationViolation> validate(T entity);
-    
+
+    /**
+     *
+     * @param entity the object to be validated
+     * @return the list of ValidationViolations containig the informations of
+     * the failed rule(if it fails)<br>Returns empty list if the object passes.
+     */
+    public List<ValidationViolation> validate(T entity);
+
 }

@@ -21,31 +21,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
 /**
- *
- * @author Nolbelt
+ * This class implements methods to manage
+ * {@link hu.unideb.inf.moneyhaus.vo.OwnedCurrency OwnedCurrency}s.
  */
 @Stateless
 @Interceptors(SpringBeanAutowiringInterceptor.class)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class OwnedCurrencyServiceImpl implements OwnedCurrencyService{
-    
+public class OwnedCurrencyServiceImpl implements OwnedCurrencyService {
+
+    /**
+     * OwnedCurrencyDao.
+     */
     @Autowired
     OwnedCurrencyDao ownedCurrencyDao;
-    
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<OwnedCurrency> findByUser(UserVO user){
+    public List<OwnedCurrency> findByUser(UserVO user) {
         List<OwnedCurrenciesEntity> entities = ownedCurrencyDao.findByUser(GenericConverter.mapTo(user, UserEntity.class));
         return GenericConverter.mapTo(entities, OwnedCurrency.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void save(OwnedCurrency ownedCurrency) {
         ownedCurrencyDao.save(GenericConverter.mapTo(ownedCurrency, OwnedCurrenciesEntity.class));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(OwnedCurrency ownedCurrency) {
         ownedCurrencyDao.delete(GenericConverter.mapTo(ownedCurrency, OwnedCurrenciesEntity.class));
     }
-    
+
 }

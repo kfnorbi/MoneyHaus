@@ -11,7 +11,7 @@
     <artifactId>moneyhaus-ejb</artifactId>
     <packaging>ejb</packaging>
 
-    <name>moneyhaus-ejb</name>
+    <name>MoneyHaus Service Implementation</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

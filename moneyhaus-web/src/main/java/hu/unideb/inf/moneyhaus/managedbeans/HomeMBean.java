@@ -6,7 +6,7 @@
 package hu.unideb.inf.moneyhaus.managedbeans;
 
 import hu.unideb.inf.moneyhaus.service.CurrencyRateService;
-import hu.unideb.inf.moneyhaus.service.DailyAveragePreCalculated;
+import hu.unideb.inf.moneyhaus.vo.DailyAveragePreCalculated;
 import hu.unideb.inf.moneyhaus.service.DailyAveragePreCalculatedService;
 import java.util.Arrays;
 import java.util.Date;
@@ -14,6 +14,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
@@ -33,7 +35,7 @@ public class HomeMBean {
 
     @EJB
     private CurrencyRateService currencyRateService;
-    
+
     @EJB
     private DailyAveragePreCalculatedService dailyAveragePreCalculatedService;
 
@@ -62,23 +64,34 @@ public class HomeMBean {
     }
 
     public LineChartModel getLineChartModel() {
-        LineChartModel lineChartModel  = new LineChartModel();
-        
-        for(String currencyCode : selected){
-            LineChartSeries series = new LineChartSeries(currencyCode);
-            for (DailyAveragePreCalculated entity:dailyAveragePreCalculatedService.findByCurrencyCodeSince(currencyCode, startDate)){
-                series.set(entity.getDate(), entity.getAverage());
+        LineChartModel lineChartModel = new LineChartModel();
+        lineChartModel.setLegendPosition("e");
+
+        Axis yAxis = lineChartModel.getAxis(AxisType.Y);
+        yAxis.setMin(0);
+        yAxis.setMax(1000);
+
+        yAxis = lineChartModel.getAxis(AxisType.X);
+        yAxis.setLabel("Births");
+        yAxis.setMin(0);
+        yAxis.setMax(2000);
+        for (String currencyCode : selected) {
+            LineChartSeries series = new LineChartSeries();
+            series.setLabel(currencyCode);
+            for (DailyAveragePreCalculated entity : dailyAveragePreCalculatedService.findByCurrencyCodeSince(currencyCode, startDate)) {
+                series.set(entity.getDate(), entity.getValue());
             }
             lineChartModel.addSeries(series);
         }
-        
+
         return lineChartModel;
     }
-    public Date retrieveCurrentDate(){
+
+    public Date retrieveCurrentDate() {
         return new Date();
     }
-    
-    public List<String> retrieveAllManagedCurrencies(){
+
+    public List<String> retrieveAllManagedCurrencies() {
         return currencyRateService.getAllManagedCurrencies();
     }
 }

@@ -10,9 +10,11 @@
     </parent>
     <artifactId>moneyhaus-integration</artifactId>
 
+    <properties>        
+        <checkstyle.skip>true</checkstyle.skip>
+    </properties>
     <packaging>war</packaging>
-    <name>moneyhaus-integration Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+    <name>MoneyHaus Integration</name>
     <dependencies>
         <dependency>
             <groupId>hu.unideb.inf</groupId>

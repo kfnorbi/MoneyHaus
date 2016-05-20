@@ -6,7 +6,7 @@
 package hu.unideb.inf.moneyhaus.refresher;
 
 import hu.unideb.inf.moneyhaus.service.CurrencyRateService;
-import hu.unideb.inf.moneyhaus.service.DailyAveragePreCalculated;
+import hu.unideb.inf.moneyhaus.vo.DailyAveragePreCalculated;
 import hu.unideb.inf.moneyhaus.service.DailyAveragePreCalculatedService;
 import hu.unideb.inf.moneyhaus.service.RefreshResultService;
 import java.util.Calendar;
@@ -18,22 +18,32 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 /**
- *
- * @author Nolbelt
+ * This class calculates average daily currecncy exchange rates and saves them
+ * to database.
  */
 @Stateless
 @Remote(DailyAveragePreCalculatedRefresher.class)
 public class DailyAveragePreCalculatedRefresherImpl implements DailyAveragePreCalculatedRefresher {
 
+    /**
+     * DailyAveragePreCalculatedService.
+     */
     @EJB
     DailyAveragePreCalculatedService dailyAveragePreCalculatedService;
-
+    /**
+     * CurrencyRateService.
+     */
     @EJB
     CurrencyRateService currencyRateService;
-
+    /**
+     * RefreshResultService.
+     */
     @EJB
     RefreshResultService refreshResultService;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void refresh() {
         final List<String> currencies = currencyRateService.getAllManagedCurrencies();
@@ -42,15 +52,15 @@ public class DailyAveragePreCalculatedRefresherImpl implements DailyAveragePreCa
         final Date date = calendar.getTime();
         List<DailyAveragePreCalculated> result = new LinkedList<>();
         for (String currencyCode : currencies) {
-            try{
+            try {
                 Double avg = currencyRateService.findAverageOnDay(currencyCode, date);
                 DailyAveragePreCalculated dailyAverage = new DailyAveragePreCalculated();
-                dailyAverage.setAverage(avg);
+                dailyAverage.setValue(avg);
                 dailyAverage.setDate(date);
                 dailyAverage.setCurrencyCode(currencyCode);
                 result.add(dailyAverage);
-            }catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
         dailyAveragePreCalculatedService.save(result);

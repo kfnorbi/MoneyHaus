@@ -9,11 +9,21 @@ import org.springframework.transaction.annotation.Transactional;
 import hu.unideb.inf.moneyhaus.entities.RefreshResultEntity;
 import java.util.Date;
 
+/**
+ * This interface is for getting RefreshResult data from persistence.
+ */
 @Repository
-@Transactional(propagation=Propagation.REQUIRED)
+@Transactional(propagation = Propagation.REQUIRED)
 public interface RefreshResultDao extends JpaRepository<RefreshResultEntity, Long> {
 
+    /**
+     * Returns the last
+     * {@link hu.unideb.inf.moneyhaus.entities.ResultStatusEntity#SUCCESSFUL successful}
+     * refresh.
+     *
+     * @return the last successful refresh
+     */
     @Query("SELECT max(r.date) FROM RefreshResultEntity r WHERE r.status = hu.unideb.inf.moneyhaus.entities.ResultStatusEntity.SUCCESSFUL")
     public Date findLastSuccessfulRefreshmentDate();
-    
+
 }

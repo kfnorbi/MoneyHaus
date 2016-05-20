@@ -16,30 +16,46 @@ import static javax.swing.text.html.HTML.Tag.BASE;
 import static org.hibernate.annotations.common.util.impl.LoggerFactory.logger;
 
 /**
- *
- * @author Nolbelt
+ * This class polls Yahoo's finance webservice to determine which of them are
+ * supported.
  */
 //@Singleton
 //@Stateful
 public class SupportedCurrenciesServiceImpl implements SupportedCurrenciesService {
 
+    /**
+     * CurrencyRateService.
+     */
     @EJB
     CurrencyRateService currencyRateService;
-
+    /**
+     * Supported currencies.
+     */
     private List<String> supportedCurrencies;
-
+    /**
+     * Base to poll by.
+     */
     private static final String BASE = "USD";
 
+    /**
+     * Postcosntruct method to refresh the currencies.
+     */
     @PostConstruct
-    public void init() {
+    private void init() {
         refreshSupportedCurrencies();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<String> getSupportedCurrencies() {
         return supportedCurrencies;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void refreshSupportedCurrencies() {
         ExchangeQuery query = new ExchangeQuery();

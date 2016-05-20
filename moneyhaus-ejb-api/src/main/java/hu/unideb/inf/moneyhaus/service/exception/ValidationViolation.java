@@ -1,9 +1,11 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.unideb.inf.moneyhaus.validation;
+package hu.unideb.inf.moneyhaus.service.exception;
+
+import hu.unideb.inf.moneyhaus.validation.*;
 
 /**
  * An object to contain validation failure messages.
@@ -22,7 +24,7 @@ public class ValidationViolation {
     private String message;
 
     /**
-     * Constructor.
+     * Constructor
      *
      * @param context the context a validation rule failed in.
      * @param message the message of the failed validation rule

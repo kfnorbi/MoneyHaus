@@ -12,13 +12,21 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Converts value objects from a
+ * <a href="https://github.com/sarxos/exchange-rates-api">third party
+ * library</a> to local objects.
  *
- * @author Nolbelt
  */
 public class ExchangeRateToCurrencyVOConverter {
-    
-    public static CurrencyRateVO toLocal(ExchangeRate excrate){
-        if (excrate == null){
+
+    /**
+     * Maps an exchange rate object to a local one.
+     *
+     * @param excrate the exchange rate to map
+     * @return the own representation of the currency rate.
+     */
+    public static CurrencyRateVO toLocal(ExchangeRate excrate) {
+        if (excrate == null) {
             throw new NullPointerException();
         }
         CurrencyRateVO vo = new CurrencyRateVO();
@@ -28,9 +36,15 @@ public class ExchangeRateToCurrencyVOConverter {
         vo.setDateTime(new Date());
         return vo;
     }
-    
-    public static List<CurrencyRateVO> toLocal(List<ExchangeRate> excrates){
-        if (excrates == null){
+
+    /**
+     * Maps the exchange rates objects to local ones.
+     *
+     * @param excrates the exchange rateS to map
+     * @return the own representation of the currency rates.
+     */
+    public static List<CurrencyRateVO> toLocal(List<ExchangeRate> excrates) {
+        if (excrates == null) {
             throw new NullPointerException();
         }
         List<CurrencyRateVO> rates = new ArrayList<>();
@@ -39,5 +53,5 @@ public class ExchangeRateToCurrencyVOConverter {
         }
         return rates;
     }
-    
+
 }

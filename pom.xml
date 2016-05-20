@@ -5,8 +5,23 @@
     <groupId>hu.unideb.inf</groupId>
     <artifactId>moneyhaus</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Moneyhaus - main</name>
-    <url>http://maven.apache.org</url>
+    <name>MoneyHaus Main Project</name>
+    <contributors>
+        <contributor>
+            <email>kfnorbi@gmail.com</email>
+            <name>Kovács-Ferenc Norbert</name>
+            <organization>University of Debrecen, Faculty of Information Technology</organization>
+            <organizationUrl>http://w1.inf.unideb.hu</organizationUrl>
+            <roles>
+                <role>developer</role>
+                <role>student</role>
+            </roles>
+        </contributor>
+    </contributors>
+    <inceptionYear>2016</inceptionYear>
+    <scm>
+        <url>http://github.com/kfnorbi/MoneyHaus</url>
+    </scm>
     <packaging>pom</packaging>
     <modules>
         <module>moneyhaus-persistence</module>
@@ -31,6 +46,25 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.5.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                            <goal>stage</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.6.201602180812</version>
             </plugin>
         </plugins>
     </build>
@@ -154,4 +188,49 @@
             <layout>default</layout>
         </repository>
     </repositories>
+    <distributionManagement>
+        <site>
+            <id>website</id>
+            <url>file:///tmp/fake.com/</url>
+        </site>
+    </distributionManagement>
+    
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.19.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.6.201602180812</version>
+            </plugin>
+            <!--            <plugin>
+                <groupId>net.sourceforge.cobertura</groupId>
+                <artifactId>cobertura</artifactId>
+                <version>2.1.1</version>
+            </plugin>-->
+
+        </plugins>
+    </reporting>
 </project>

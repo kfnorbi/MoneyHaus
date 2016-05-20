@@ -1,5 +1,15 @@
 package hu.unideb.inf.moneyhaus.entities;
 
+/**
+ * An enumeration representing a refresh outcome.
+ */
 public enum ResultStatusEntity {
-	SUCCESSFUL, FAILED
+    /**
+     * Successful refresh.
+     */
+    SUCCESSFUL,
+    /**
+     * Unsuccessful refresh.
+     */
+    FAILED
 }

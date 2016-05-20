@@ -24,30 +24,40 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
-import javax.swing.text.html.HTMLDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
 /**
- *
- * @author Nolbelt
+ * This class implements methods to calculate recommended currencies before any
+ * user could request it. This enchances the speed of the service.
  */
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @Interceptors(SpringBeanAutowiringInterceptor.class)
 public class PreCalculatedRecommendationServiceImpl implements PreCalculatedRecommendationService {
 
+    /**
+     * CurrencyRateService.
+     */
     @EJB
     CurrencyRateService currencyRateService;
-
+    /**
+     * PreCalculatedRecommendationDao.
+     */
     @Autowired
     PreCalculatedRecommendationDao preCalculatedRecommendationDao;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void save(PreCalculatedRecommendation preCalculatedRecommendation) {
         preCalculatedRecommendationDao.save(GenericConverter.mapTo(preCalculatedRecommendation, PreCalculatedRecommendationEntity.class));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<PreCalculatedRecommendation> calculateRecommendations() {
         List<PreCalculatedRecommendation> result = new ArrayList<>();
@@ -57,7 +67,7 @@ public class PreCalculatedRecommendationServiceImpl implements PreCalculatedReco
         for (String currencyCode : ALL) {
             Double average = currencyRateService.findAverageOfCurrencySinceDate(currencyCode, cal.getTime());
             CurrencyRateVO currencyRate = currencyRateService.findLatestCurrency(currencyCode);
-            if (currencyRate == null){
+            if (currencyRate == null) {
                 continue;
             }
             if (currencyRate.getRate().divide(new BigDecimal((average)), RoundingMode.HALF_UP).compareTo(BigDecimal.ONE) > 0) {
@@ -71,17 +81,23 @@ public class PreCalculatedRecommendationServiceImpl implements PreCalculatedReco
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void save(List<PreCalculatedRecommendation> preCalculatedRecommendations) {
         preCalculatedRecommendationDao.save(GenericConverter.mapTo(preCalculatedRecommendations, PreCalculatedRecommendationEntity.class));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<PreCalculatedRecommendation> getBiggestRecommendations() {
         List<PreCalculatedRecommendation> result = GenericConverter.mapTo(preCalculatedRecommendationDao.findLatestRecommendations(), PreCalculatedRecommendation.class);
         try {
             return result.subList(0, 5);
-        }catch(Exception e){
+        } catch (Exception e) {
             return Collections.<PreCalculatedRecommendation>emptyList();
         }
     }
