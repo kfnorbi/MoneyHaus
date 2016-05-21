@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package hu.unideb.inf.moneyhaus.converter;
 
 import hu.unideb.inf.moneyhaus.vo.RegistrationRequest;
-import hu.unideb.inf.moneyhaus.vo.RoleVO;
 import hu.unideb.inf.moneyhaus.vo.UserVO;
-import java.util.Arrays;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 /**

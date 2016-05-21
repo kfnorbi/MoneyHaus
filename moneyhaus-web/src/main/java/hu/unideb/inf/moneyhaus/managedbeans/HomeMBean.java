@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package hu.unideb.inf.moneyhaus.managedbeans;
 
 import hu.unideb.inf.moneyhaus.service.CurrencyRateService;
@@ -19,10 +15,6 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
-/**
- *
- * @author Nolbelt
- */
 @ManagedBean
 @ViewScoped
 public class HomeMBean {

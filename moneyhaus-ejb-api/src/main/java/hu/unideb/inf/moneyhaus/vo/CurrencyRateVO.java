@@ -2,6 +2,7 @@ package hu.unideb.inf.moneyhaus.vo;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * This class represents a currency exchange rate at a single moment.
@@ -104,6 +105,42 @@ public class CurrencyRateVO extends BaseVO {
      */
     public void setRate(BigDecimal rate) {
         this.rate = rate;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CurrencyRateVO other = (CurrencyRateVO) obj;
+        if (!Objects.equals(this.currencyCode, other.currencyCode)) {
+            return false;
+        }
+        if (!Objects.equals(this.base, other.base)) {
+            return false;
+        }
+        if (!Objects.equals(this.rate, other.rate)) {
+            return false;
+        }
+        return true;
     }
 
 }

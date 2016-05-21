@@ -43,6 +43,43 @@ import org.slf4j.LoggerFactory;
 public class UserServiceImpl implements UserService, Serializable {
 
     /**
+     * The validator used to validate registration requests.
+     */
+    private RegistrationRequestValidator validator = new RegistrationRequestValidator(Arrays.asList(
+            new EmailValidationRule(),
+            new ExistingUserNameValidationRule(),
+            new PasswordConfirmationMatchValidationRule(),
+            new PasswordStrengthValidationRule()));
+
+    /**
+     * Sets the validator for validating registration requests.
+     *
+     * @param validator
+     */
+    public void setValidator(RegistrationRequestValidator validator) {
+        this.validator = validator;
+    }
+
+    /**
+     * Sets the UserDao of the service.
+     *
+     * @param userDao the UserDao to be set
+     */
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    /**
+     *
+     * Sets the RoleDao of the service.
+     *
+     * @param roleDao the RoleDao to be set
+     */
+    public void setRoleDao(RoleDao roleDao) {
+        this.roleDao = roleDao;
+    }
+
+    /**
      * Logger.
      */
     private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -87,11 +124,6 @@ public class UserServiceImpl implements UserService, Serializable {
      */
     @Override
     public void registrate(RegistrationRequest registrationRequest) throws ValidationException {
-        RegistrationRequestValidator validator = new RegistrationRequestValidator(Arrays.asList(
-                new EmailValidationRule(),
-                new ExistingUserNameValidationRule(),
-                new PasswordConfirmationMatchValidationRule(),
-                new PasswordStrengthValidationRule()));
 
         validator.validate(registrationRequest);
 

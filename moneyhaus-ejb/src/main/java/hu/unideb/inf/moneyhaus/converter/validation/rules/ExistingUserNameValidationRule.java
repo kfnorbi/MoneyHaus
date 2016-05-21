@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package hu.unideb.inf.moneyhaus.converter.validation.rules;
 
 import hu.unideb.inf.moneyhaus.service.UserService;
@@ -13,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.naming.InitialContext;
-import org.hibernate.exception.spi.ViolatedConstraintNameExtracter;
+import org.apache.commons.lang3.Validate;
 
 /**
  * This class checks if the request's username has been occupied.
@@ -26,6 +22,16 @@ public class ExistingUserNameValidationRule implements ValidationRule<Registrati
      * UserService.
      */
     UserService userService;
+
+    /**
+     * Sets the {@link hu.unideb.inf.moneyhaus.service.UserService UserService}
+     * of the validation rule
+     *
+     * @param userService the UserService of the class
+     */
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Default constructor.
@@ -57,6 +63,8 @@ public class ExistingUserNameValidationRule implements ValidationRule<Registrati
      */
     @Override
     public List<ValidationViolation> validate(RegistrationRequest entity) {
+        Validate.notNull(entity);
+        Validate.notNull(entity.getUserName());
         if (userService.exists(entity.getUserName().trim())) {
             return Arrays.asList(new ValidationViolation("username", "Ez a felhasználónév már foglalt!"));
         } else {

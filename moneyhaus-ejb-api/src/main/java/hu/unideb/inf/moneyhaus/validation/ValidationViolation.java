@@ -1,9 +1,7 @@
-    /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package hu.unideb.inf.moneyhaus.validation;
+
+import java.util.Objects;
 
 /**
  * An object to contain validation failure messages.
@@ -66,6 +64,47 @@ public class ValidationViolation {
      */
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.context);
+        hash = 11 * hash + Objects.hashCode(this.message);
+        return hash;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        System.out.println("nothing");
+        if (this == obj) {
+            System.out.println("reference");
+            return true;
+        }
+        if (obj == null) {
+            System.out.println("null");
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            System.out.println("class");
+            return false;
+        }
+        final ValidationViolation other = (ValidationViolation) obj;
+        if (!this.context.equals(other.context)) {
+            System.out.println("context");
+            return false;
+        }
+        if (!this.message.equals(other.message)) {
+            System.out.println("message");
+            return false;
+        }
+        return true;
     }
 
 }

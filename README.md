@@ -10,6 +10,7 @@ The development and testing were both on [Glassfish 4.0](https://glassfish.java.
 #### Configuriguring the application server:
 1. Copy the chosen jdbc driver to the domain's lib folder
 1. Add a connection pool to your database
+1. In your database management run the [Quartz databse scripts](sql_scripts/tables_mysql.sql)
 1. Add a datasource named `MoneyHausDS`
 
 ## Licenses & Copyright

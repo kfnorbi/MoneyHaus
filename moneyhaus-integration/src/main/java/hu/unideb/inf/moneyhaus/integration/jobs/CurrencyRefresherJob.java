@@ -11,7 +11,6 @@ import org.quartz.JobExecutionException;
 import hu.unideb.inf.moneyhaus.refresher.CurrencyRefresher;
 import hu.unideb.inf.moneyhaus.refresher.PreCalculatedRecommendationRefresher;
 import hu.unideb.inf.moneyhaus.refresher.exception.CurrencyRefreshingException;
-import hu.unideb.inf.moneyhaus.vo.PreCalculatedRecommendation;
 
 @DisallowConcurrentExecution
 public class CurrencyRefresherJob implements Job {

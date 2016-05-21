@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import org.apache.commons.lang3.Validate;
 
 /**
  * This class determines the currency rate and exchanges it to the required
@@ -29,10 +30,21 @@ public class CurrencyBaseConverterImpl implements CurrencyBaseConverter {
     CurrencyRateService currencyRateService;
 
     /**
+     * Sets the CurrencyRateService.
+     *
+     * @param currencyRateService the CurrencyRateService of the class
+     */
+    public void setCurrencyRateService(CurrencyRateService currencyRateService) {
+        this.currencyRateService = currencyRateService;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public CurrencyRateVO convertTo(CurrencyRateVO from, CurrencyRateVO to) {
+        Validate.notNull(to);
+        Validate.notNull(from);
         CurrencyRateVO rate = new CurrencyRateVO();
         rate.setBase(from.getBase());
         rate.setCurrencyCode(to.getBase());

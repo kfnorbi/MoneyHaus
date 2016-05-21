@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package hu.unideb.inf.moneyhaus.integration.jobs;
 
 import hu.unideb.inf.moneyhaus.refresher.DailyAveragePreCalculatedRefresher;
@@ -11,10 +7,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-/**
- *
- * @author Nolbelt
- */
+
 public class CurrencyAvarageCalculatorJob implements Job {
 
     private DailyAveragePreCalculatedRefresher dailyAveragePreCalculatedRefresher;

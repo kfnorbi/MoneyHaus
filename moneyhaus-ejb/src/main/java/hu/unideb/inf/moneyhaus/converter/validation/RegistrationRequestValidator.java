@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.unideb.inf.moneyhaus.converter.validation;
 
 import hu.unideb.inf.moneyhaus.validation.AbstractRuleValidator;
@@ -12,7 +7,7 @@ import java.util.List;
 
 /**
  * This class validates
- * {@link hu.unideb.inf.moneyhaus.vo.RegistrationRequest RegistrationRequest}s.
+ * {@link hu.unideb.inf.moneyhaus.vo.RegistrationRequest RegistrationRequest}.
  *
  */
 public class RegistrationRequestValidator extends AbstractRuleValidator<RegistrationRequest> {
