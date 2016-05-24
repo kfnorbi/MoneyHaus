@@ -107,34 +107,34 @@
             <dependency>
                 <groupId>hu.unideb.inf</groupId>
                 <artifactId>moneyhaus-web</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0</version>
                 <type>war</type>
             </dependency>
             <dependency>
                 <groupId>hu.unideb.inf</groupId>
                 <artifactId>moneyhaus-ejb</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0</version>
                 <type>ejb</type>
             </dependency>
             <dependency>
                 <groupId>hu.unideb.inf</groupId>
                 <artifactId>moneyhaus-ear</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0</version>
             </dependency>
             <dependency>
                 <groupId>hu.unideb.inf</groupId>
                 <artifactId>moneyhaus-ejb-api</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0</version>
             </dependency>
             <dependency>
                 <groupId>hu.unideb.inf</groupId>
                 <artifactId>moneyhaus-persistence</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0</version>
             </dependency>
             <dependency>
                 <groupId>hu.unideb.inf</groupId>
                 <artifactId>moneyhaus-integration</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0</version>
                 <type>war</type>
             </dependency>
 
