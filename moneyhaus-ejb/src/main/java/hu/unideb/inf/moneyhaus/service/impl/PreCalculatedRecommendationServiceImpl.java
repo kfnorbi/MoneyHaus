@@ -110,7 +110,7 @@ public class PreCalculatedRecommendationServiceImpl implements PreCalculatedReco
         try {
             return result.subList(0, 5);
         } catch (Exception e) {
-            return Collections.<PreCalculatedRecommendation>emptyList();
+            return result;
         }
     }
 }
