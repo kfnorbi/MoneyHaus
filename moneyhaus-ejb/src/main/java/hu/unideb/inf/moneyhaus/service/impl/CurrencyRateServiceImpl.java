@@ -97,4 +97,14 @@ public class CurrencyRateServiceImpl implements CurrencyRateService {
         return currencyDao.findAvaragesByCurrencyCodeSince(currencyCode, date, new Date());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void save(List<CurrencyRateVO> currencies) {
+        for (CurrencyRateVO c : currencies) {
+            save(c);
+        }
+    }
+
 }

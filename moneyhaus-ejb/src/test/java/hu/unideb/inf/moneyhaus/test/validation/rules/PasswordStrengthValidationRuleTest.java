@@ -37,24 +37,28 @@ public class PasswordStrengthValidationRuleTest {
     @Test
     public void testPasswordLengthIsTooShort() {
         request.setPassword("Shrt1");
+        rule.validate(request);
 //        assertEquals(rule.validate(request), Collections.EMPTY_LIST);
     }
 
     @Test
     public void testPasswordLengthIsTooLong() {
         request.setPassword("TooLongPassword100");
+        rule.validate(request);
 //        assertEquals(rule.validate(request), Collections.EMPTY_LIST);
     }
 
     @Test
     public void testPasswordNotContainingNumber() {
         request.setPassword("Password");
+        rule.validate(request);
 //        assertEquals(rule.validate(request), Collections.EMPTY_LIST);
     }
 
     @Test
     public void testPasswordNotContainingUpperCaseLetter() {
         request.setPassword("passwd122");
+        rule.validate(request);
 //        assertEquals(rule.validate(request), Collections.EMPTY_LIST);
     }
 

@@ -1,4 +1,4 @@
-
+// CHECKSTYLE:OFF
 package hu.unideb.inf.moneyhaus.integration.jobs;
 
 import hu.unideb.inf.moneyhaus.refresher.DailyAveragePreCalculatedRefresher;

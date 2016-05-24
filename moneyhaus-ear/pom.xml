@@ -5,7 +5,7 @@
     <parent>
         <artifactId>moneyhaus</artifactId>
         <groupId>hu.unideb.inf</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <artifactId>moneyhaus-ear</artifactId>
@@ -39,6 +39,13 @@
     <build>
         <finalName>MoneyHaus</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>

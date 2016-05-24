@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package hu.unideb.inf.moneyhaus.validation.exception;
 
 import hu.unideb.inf.moneyhaus.validation.ValidationViolation;

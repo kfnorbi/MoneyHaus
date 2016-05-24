@@ -1,4 +1,4 @@
-
+// CHECKSTYLE:OFF
 package hu.unideb.inf.moneyhaus.managedbeans;
 
 import hu.unideb.inf.moneyhaus.security.UserMBean;

@@ -22,6 +22,11 @@
             <div class="card"></div>
             <div class="card">
                 <h1 class="title">Bejelentkezés</h1>
+                <p:panelGrid  columns="1" style="padding:10px;background-color: red;color: white;margin: auto;width: 45%;" rendered="#{param['error'] eq 1}">
+                    <!--<div class="error" style="padding:10px;background-color: red;color: white;margin: auto;width: 45%;">-->
+                    <p:outputLabel value="Sikertelen bejelentkezés!" />
+                    <!--</div>-->
+                </p:panelGrid>
                 <form id="login-form" action="#{request.contextPath}/login" method="post">
                     <div class="input-container">
                         <input type="text" name="j_username" id="Username" required="required"/>

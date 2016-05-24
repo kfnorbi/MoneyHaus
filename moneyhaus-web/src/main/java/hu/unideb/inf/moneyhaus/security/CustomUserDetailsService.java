@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package hu.unideb.inf.moneyhaus.security;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import hu.unideb.inf.moneyhaus.vo.UserVO;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@EJB
-	UserService userService;
+	private UserService userService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package hu.unideb.inf.moneyhaus.refresher.exception;
 
 public class CurrencyRefreshingException extends Exception {

@@ -29,7 +29,7 @@ public class ExchangeRateToCurrencyVOConverter {
         vo.setBase(excrate.getFrom());
         vo.setRate(excrate.getRate());
         vo.setCurrencyCode(excrate.getTo());
-        vo.setDateTime(new Date());
+        vo.setDate(new Date());
         return vo;
     }
 

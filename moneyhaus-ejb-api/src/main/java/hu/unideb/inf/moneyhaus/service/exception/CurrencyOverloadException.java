@@ -1,4 +1,4 @@
-
+// CHECKSTYLE:OFF
 package hu.unideb.inf.moneyhaus.service.exception;
 
 /**

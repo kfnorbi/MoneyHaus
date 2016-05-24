@@ -1,7 +1,7 @@
-
 package hu.unideb.inf.moneyhaus.service;
 
 import hu.unideb.inf.moneyhaus.vo.PreCalculatedRecommendation;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,8 +30,10 @@ public interface PreCalculatedRecommendationService {
      * Calculate the recommendations from the exchange rates.
      *
      * @return all of the possible recommended currencies
+     * @param date the date proximity of the recommendation Calculations will
+     * use currency rates since.
      */
-    public List<PreCalculatedRecommendation> calculateRecommendations();
+    public List<PreCalculatedRecommendation> calculateRecommendations(Date date);
 
     /**
      * Retrieves the largest growth recommendations.

@@ -1,10 +1,11 @@
-
+// CHECKSTYLE:OFF
 package hu.unideb.inf.moneyhaus.managedbeans;
 
 import hu.unideb.inf.moneyhaus.service.UserService;
 import hu.unideb.inf.moneyhaus.validation.ValidationViolation;
 import hu.unideb.inf.moneyhaus.validation.exception.ValidationException;
 import hu.unideb.inf.moneyhaus.vo.RegistrationRequest;
+import java.io.IOException;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -17,19 +18,20 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class RegistrationMBean {
 
-    RegistrationRequest registrationRequest;
+    private RegistrationRequest registrationRequest;
 
     @EJB
-    UserService userService;
+    private UserService userService;
 
     @PostConstruct
     public void init(){
         registrationRequest = new RegistrationRequest();
     }
     
-    public void doRegistrate() {
+    public void doRegistrate() throws IOException {
         try {
             userService.registrate(registrationRequest);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
         } catch (ValidationException ex) {
             for (ValidationViolation violation : ex.getViolations()) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(violation.getMessage()));

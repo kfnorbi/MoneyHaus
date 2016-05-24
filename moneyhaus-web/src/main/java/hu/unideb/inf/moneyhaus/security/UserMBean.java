@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package hu.unideb.inf.moneyhaus.security;
 
 import java.io.Serializable;

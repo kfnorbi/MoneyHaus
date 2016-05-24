@@ -16,6 +16,13 @@ public interface CurrencyRateService {
      * @param currency the currency rate to be saved
      */
     public void save(CurrencyRateVO currency);
+    
+    /**
+     * Saves a currency rates.
+     *
+     * @param currencies the currency rates to be saved
+     */
+    public void save(List<CurrencyRateVO> currencies);
 
     /**
      * Retrieves all the {@code code} currencies.

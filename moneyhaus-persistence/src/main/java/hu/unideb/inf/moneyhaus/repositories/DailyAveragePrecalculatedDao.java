@@ -39,7 +39,7 @@ public interface DailyAveragePrecalculatedDao extends JpaRepository<DailyAverage
      * @return all the average currency exchange rate between {@code start} and
      * {@code end}.
      */
-    @Query("SELECT d FROM DailyAveragePreCalculatedEntity d WHERE d.currencyCode = :currencyCode AND d.date BETWEEN :start AND :end")
+    @Query("SELECT d FROM DailyAveragePreCalculatedEntity d WHERE d.currencyCode = :currencyCode AND d.date BETWEEN :start AND :end order by d.date")
     List<DailyAveragePreCalculatedEntity> findByCurrencyCodeBetweenDate(@Param("currencyCode") String currencyCode, @Param("start") Date start, @Param("end") Date end);
 
 }

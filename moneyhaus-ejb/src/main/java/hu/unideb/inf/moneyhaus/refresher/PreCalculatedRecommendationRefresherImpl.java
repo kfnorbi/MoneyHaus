@@ -2,6 +2,7 @@ package hu.unideb.inf.moneyhaus.refresher;
 
 import hu.unideb.inf.moneyhaus.service.PreCalculatedRecommendationService;
 import hu.unideb.inf.moneyhaus.vo.PreCalculatedRecommendation;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -26,7 +27,9 @@ public class PreCalculatedRecommendationRefresherImpl implements PreCalculatedRe
      */
     @Override
     public void refresh() {
-        List<PreCalculatedRecommendation> result = preCalculatedRecommendationService.calculateRecommendations();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        List<PreCalculatedRecommendation> result = preCalculatedRecommendationService.calculateRecommendations(cal.getTime());
         preCalculatedRecommendationService.save(result);
     }
 

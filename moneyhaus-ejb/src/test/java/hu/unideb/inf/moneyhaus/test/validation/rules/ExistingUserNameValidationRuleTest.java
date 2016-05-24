@@ -2,9 +2,11 @@ package hu.unideb.inf.moneyhaus.test.validation.rules;
 
 import hu.unideb.inf.moneyhaus.converter.validation.rules.ExistingUserNameValidationRule;
 import hu.unideb.inf.moneyhaus.service.UserService;
+import hu.unideb.inf.moneyhaus.validation.ValidationViolation;
 import hu.unideb.inf.moneyhaus.vo.RegistrationRequest;
 import hu.unideb.inf.moneyhaus.vo.UserVO;
 import java.util.Collections;
+import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -35,21 +37,23 @@ public class ExistingUserNameValidationRuleTest {
     }
 
     @Test
-    public void testUserNameNotExists() {
+    public void testUserNameExists() {
         UserService service = mock(UserService.class);
         request.setUserName("test");
-        when(service.findByUsername("test")).thenReturn(new UserVO());
+        when(service.exists("test")).thenReturn(true);
         rule.setUserService(service);
+        rule.validate(request);
 //        assertEquals(Arrays.asList(new ValidationViolation("username", "Ez a felhasználónév már foglalt!")), rule.validate(request));
     }
 
     @Test
-    public void testUserNameExists() {
+    public void testUserNameNotExists() {
         UserService service = mock(UserService.class);
         request.setUserName("test");
         when(service.findByUsername("test")).thenReturn(null);
         rule.setUserService(service);
-        assertEquals(rule.validate(request), Collections.EMPTY_LIST);
+        List<ValidationViolation> result = rule.validate(request);
+        assertEquals(result, Collections.EMPTY_LIST);
     }
 
     @Test(expected = NullPointerException.class)

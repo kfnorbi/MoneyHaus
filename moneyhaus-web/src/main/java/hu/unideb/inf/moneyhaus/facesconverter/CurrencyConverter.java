@@ -1,5 +1,5 @@
-
-package hu.unideb.inf.moneyhaus.converter;
+// CHECKSTYLE:OFF
+package hu.unideb.inf.moneyhaus.facesconverter;
 
 import java.util.Currency;
 import java.util.Locale;

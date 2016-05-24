@@ -39,7 +39,7 @@ public class PasswordConfirmationMatchValidationRuleTest {
     public void testUserNameConfirmationNotMatch() {
         request.setPassword("test");
         request.setPasswordConfirmation("password");
-        //TODO
+        rule.validate(request);
     }
 
     @Test(expected = NullPointerException.class)

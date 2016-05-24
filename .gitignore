@@ -22,3 +22,4 @@ hs_err_pid*
 /moneyhaus-integration/target/
 /moneyhaus-ear/target/
 /moneyhaus-ejb/nbproject/
+/moneyhaus-persistence/nbproject/

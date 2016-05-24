@@ -1,5 +1,6 @@
 package hu.unideb.inf.moneyhaus.test.service.impl;
 
+import hu.unideb.inf.moneyhaus.entities.CurrencyRate;
 import hu.unideb.inf.moneyhaus.service.CurrencyRateService;
 import hu.unideb.inf.moneyhaus.service.exception.NoCurrencyDataException;
 import hu.unideb.inf.moneyhaus.service.impl.CurrencyBaseConverterImpl;
@@ -8,6 +9,8 @@ import hu.unideb.inf.moneyhaus.vo.OwnedCurrency;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.nio.file.NotDirectoryException;
+import java.util.Arrays;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,14 +28,13 @@ public class CurrencyBaseConverterImplTest {
     private CurrencyRateVO from;
 
     private CurrencyRateVO to;
-    private OwnedCurrency ownedCurrency;
+//    private OwnedCurrency ownedCurrency;
 
     @Before
     public void setUp() {
         from = new CurrencyRateVO();
         to = new CurrencyRateVO();
         baseConverterImpl = new CurrencyBaseConverterImpl();
-        ownedCurrency = new OwnedCurrency();
     }
 
     @Test
@@ -105,6 +107,8 @@ public class CurrencyBaseConverterImplTest {
 
     @Test
     public void testOwnedCurrencyConversion() throws NoCurrencyDataException {
+        OwnedCurrency ownedCurrency = new OwnedCurrency();
+
         ownedCurrency.setQuantity(BigDecimal.ONE);
         ownedCurrency.setCurrency("GBP");
 
@@ -132,6 +136,8 @@ public class CurrencyBaseConverterImplTest {
 
     @Test
     public void testOwnedCurrencyConversionForCurrrency() throws NoCurrencyDataException {
+        OwnedCurrency ownedCurrency = new OwnedCurrency();
+
         ownedCurrency.setQuantity(BigDecimal.ONE);
         ownedCurrency.setCurrency("GBP");
 
@@ -159,6 +165,7 @@ public class CurrencyBaseConverterImplTest {
 
     @Test
     public void testOwnedCurrencyConversionForTheSameCurrency() throws NoCurrencyDataException {
+        OwnedCurrency ownedCurrency = new OwnedCurrency();
         ownedCurrency.setQuantity(BigDecimal.ONE);
         ownedCurrency.setCurrency("GBP");
 
@@ -173,6 +180,29 @@ public class CurrencyBaseConverterImplTest {
         baseConverterImpl.setCurrencyRateService(service);
 
         BigDecimal actual = baseConverterImpl.getValue(ownedCurrency, "GBP");
+
+        BigDecimal expected = new BigDecimal(BigInteger.ONE);
+
+        assertEquals(expected.setScale(3, RoundingMode.HALF_UP), actual.setScale(3, RoundingMode.HALF_UP));
+    }
+
+    @Test
+    public void testOwnedCurrencyConversionAsList() throws NoCurrencyDataException {
+        OwnedCurrency ownedCurrency = new OwnedCurrency();
+        ownedCurrency.setQuantity(BigDecimal.ONE);
+        ownedCurrency.setCurrency("GBP");
+
+        CurrencyRateService service = mock(CurrencyRateService.class);
+
+        from.setBase("GBP");
+        from.setCurrencyCode("USD");
+        from.setRate(new BigDecimal(1.45038));
+
+        when(service.findLatestCurrency("GBP")).thenReturn(from);
+
+        baseConverterImpl.setCurrencyRateService(service);
+
+        BigDecimal actual = baseConverterImpl.getValue(Arrays.asList(ownedCurrency), "GBP");
 
         BigDecimal expected = new BigDecimal(BigInteger.ONE);
 

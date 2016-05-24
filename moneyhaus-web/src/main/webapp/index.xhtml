@@ -5,13 +5,16 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template/masterLayout.xhtml">
 
+    <ui:define name="extra-headers">
+        <h:outputStylesheet name="css/custom.css" library="default" />
+    </ui:define>
     <ui:define name="title">Főoldal</ui:define>
 
     <ui:define name="content-main">
         <h:form id="main-form">
-            <p:growl id="growl" showDetail="true" sticky="true" />  
 
-            <p:selectManyMenu id="advanced" value="#{homeMBean.selected}" filter="true" filterMatchMode="contains" showCheckbox="true" style="float:left">
+
+            <p:selectManyMenu id="advanced" value="#{homeMBean.selected}" filter="true" filterMatchMode="contains" showCheckbox="true" style="float:left" required="true" requiredMessage="Legalább egy valuta megadása kötelező">
                 <f:selectItems value="#{homeMBean.retrieveAllManagedCurrencies()}" var="currency" />
 
                 <!--<p:ajax update="chart" />--> 
@@ -22,17 +25,21 @@
             </p:selectManyMenu>
 
 
-            <p:calendar id="startTime" value="#{homeMBean.startDate}" pattern="MM/dd/yyyy" maxdate="#{homeMBean.endDate}" required="true" requiredMessage="Kötelező kezdeti dátumot megadni" style="float:left">
+            <p:calendar id="startTime" value="#{homeMBean.startDate}" pattern="MM/dd/yyyy" maxdate="#{homeMBean.endDate}" required="true" requiredMessage="Kötelező kezdeti dátumot megadni" placeholder="Kezdeti dátum" style="float:left;margin-left: 25px">
                 <p:ajax update="growl"/>
             </p:calendar>
-            <p:calendar id="endTime" value="#{homeMBean.endDate}" pattern="MM/dd/yyyy" required="true" mindate="#{homeMBean.startDate}" maxdate="#{homeMBean.retrieveCurrentDate()}" requiredMessage="Kötelező végdátumot megadni" style="float:left">
+            <p:calendar id="endTime" value="#{homeMBean.endDate}" pattern="MM/dd/yyyy" required="true" mindate="#{homeMBean.startDate}" maxdate="#{homeMBean.retrieveCurrentDate()}" requiredMessage="Kötelező végdátumot megadni" placeholder="Végdátum" style="float:left; margin-left:25px;">
                 <p:ajax update="growl"/>
             </p:calendar>
 
             <p:commandButton value="Betöltés" update="main-form" style="float:left"/>
 
-            <p:chart id="chart" type="line" model="#{homeMBean.lineChartModel}" style="height:300px;" 
-                     rendered="#{homeMBean.endDate != null and homeMBean.startDate != null}"/>
+            <p:panel id="chart" style="float:right;padding: 30px    "  rendered="#{homeMBean.endDate != null and homeMBean.startDate != null}">
+                <p:chart type="line" model="#{homeMBean.lineChartModel}" style="height:500px;width: 800px;"/>
+            </p:panel>
+            <div class="growl-panel">
+                <p:growl id="growl" sticky="true" />
+            </div>
         </h:form>
     </ui:define>
 

@@ -17,7 +17,7 @@ public class CurrencyRateVO extends BaseVO {
     /**
      * The date of refresh.
      */
-    private Date dateTime;
+    private Date date;
 
     /**
      * The rate of the currency exchange rate.
@@ -40,17 +40,17 @@ public class CurrencyRateVO extends BaseVO {
      *
      * @return the date of the currency exchange rate refresh
      */
-    public Date getDateTime() {
-        return dateTime;
+    public Date getDate() {
+        return date;
     }
 
     /**
      * Sets the currency rate refresh date.
      *
-     * @param dateTime the date to be set
+     * @param date the date to be set
      */
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     /**

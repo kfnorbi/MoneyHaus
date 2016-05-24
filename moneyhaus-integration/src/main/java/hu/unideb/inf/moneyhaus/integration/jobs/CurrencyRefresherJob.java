@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package hu.unideb.inf.moneyhaus.integration.jobs;
 
 import javax.naming.InitialContext;

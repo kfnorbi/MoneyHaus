@@ -1,4 +1,5 @@
-package hu.unideb.inf.moneyhaus.converter;
+// CHECKSTYLE:OFF
+package hu.unideb.inf.moneyhaus.facesconverter;
 
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;

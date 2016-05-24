@@ -1,8 +1,8 @@
-
 package hu.unideb.inf.moneyhaus.vo;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -77,6 +77,45 @@ public class PreCalculatedRecommendation extends BaseVO {
      */
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 31 * hash + Objects.hashCode(this.currency);
+        hash = 31 * hash + Objects.hashCode(this.date);
+        hash = 31 * hash + Objects.hashCode(this.growth);
+        return hash;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PreCalculatedRecommendation other = (PreCalculatedRecommendation) obj;
+        if (!Objects.equals(this.currency, other.currency)) {
+            return false;
+        }
+        if (!Objects.equals(this.date, other.date)) {
+            return false;
+        }
+        if (!Objects.equals(this.growth, other.growth)) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -1,4 +1,3 @@
-
 package hu.unideb.inf.moneyhaus.service.impl;
 
 import hu.unideb.inf.moneyhaus.converter.GenericConverter;
@@ -52,16 +51,33 @@ public class PreCalculatedRecommendationServiceImpl implements PreCalculatedReco
     }
 
     /**
+     * Sets the CurrencyRateService of the class.
+     *
+     * @param currencyRateService the CurrencyRateService to be set
+     */
+    public void setCurrencyRateService(CurrencyRateService currencyRateService) {
+        this.currencyRateService = currencyRateService;
+    }
+
+    /**
+     * Sets the PreCalculatedRecommendationDao of this class.
+     *
+     * @param preCalculatedRecommendationDao the PreCalculatedRecommendationDao
+     * of the class
+     */
+    public void setPreCalculatedRecommendationDao(PreCalculatedRecommendationDao preCalculatedRecommendationDao) {
+        this.preCalculatedRecommendationDao = preCalculatedRecommendationDao;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
-    public List<PreCalculatedRecommendation> calculateRecommendations() {
+    public List<PreCalculatedRecommendation> calculateRecommendations(Date date) {
         List<PreCalculatedRecommendation> result = new ArrayList<>();
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
         final List<String> ALL = currencyRateService.getAllManagedCurrencies();
         for (String currencyCode : ALL) {
-            Double average = currencyRateService.findAverageOfCurrencySinceDate(currencyCode, cal.getTime());
+            Double average = currencyRateService.findAverageOfCurrencySinceDate(currencyCode, date);
             CurrencyRateVO currencyRate = currencyRateService.findLatestCurrency(currencyCode);
             if (currencyRate == null) {
                 continue;

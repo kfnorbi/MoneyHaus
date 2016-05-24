@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService, Serializable {
     /**
      * Sets the validator for validating registration requests.
      *
-     * @param validator
+     * @param validator the validator of the registration request
      */
     public void setValidator(RegistrationRequestValidator validator) {
         this.validator = validator;
